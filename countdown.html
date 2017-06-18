@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuddle Countdown</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body>
+
+<script>
+
+    CountDownTimer('07/26/2017 03:35 PM', 'countdown');
+
+    function CountDownTimer(dt, id)
+    {
+        var end = new Date(dt);
+
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+        function showRemaining() {
+            var now = new Date();
+            var localTime = now.getTime();
+            var localOffset = now.getTimezoneOffset() * 60000;
+            var utc = localTime + localOffset;
+
+            var distance = end - utc;
+            if (distance < 0) {
+
+                clearInterval(timer);
+                document.getElementById(id).innerHTML = 'OMG YOU HERE!';
+
+                return;
+            }
+            var days = Math.floor(distance / _day);
+            var hours = Math.floor((distance % _day) / _hour);
+            var minutes = Math.floor((distance % _hour) / _minute);
+            var seconds = Math.floor((distance % _minute) / _second);
+
+            document.getElementById(id).innerHTML = days + ' days, ';
+            document.getElementById(id).innerHTML += hours + ' hrs, ';
+            document.getElementById(id).innerHTML += minutes + ' mins and ';
+            document.getElementById(id).innerHTML += seconds + ' seconds until you are in my arms!!!';
+        }
+
+        timer = setInterval(showRemaining, 1000);
+    }
+
+</script>
+<h1>Cuddle Countdown</h1>
+<div id="countdown"></div>
+
+<h1>You</h1>
+<pre>
+You are the energy that fills the room
+Your excited jumps quake the cracks of doom
+You are the effigy to all that makes me swoon
+With the whites of your eyes brighter than the surface of the moon
+
+</pre>
+<p><i>17th June 2016</i></p>
+<br><br>
+
+
+<h1>Proof You Are Crazy</h1>
+<pre>
+I could warn, as they do, to not lose your composure
+But from the evidence it seems true that you have never found it
+As if you did – even just for a second become, if you will, composed
+Then all living things would rightfully turn up their nose at Bach, Chopin &amp; Lizst
+And so, therefore, QED – your composure mustn't exist ▪
+
+</pre>
+<p><i>2016</i></p>
+<br><br>
+
+
+<h1>⠙⠁⠞⠀⠁⠎⠎</h1>
+<pre>
+I have suspended my reading list
+And switched to braille
+I want to read you from top to tail
+
+</pre>
+<p><i>(Typed and title added 14th July 2016, but finished on first conception much earlier)</i></p>
+<br><br>
+
+
+<h1>Tangela</h1>
+<pre>
+Just knowing that you exist keeps me happy
+And the blanket lets me know
+When I pull it close and drift to sleep
+A log fire when the world is snow
+
+For sprinkled deep are quantum threads
+Connecting entangled sheets on our beds	
+And quantum entangled thoughts in our heads
+
+</pre>
+<p><i>14th July 2016</i></p>
+<br><br>
+
+
+<h1>Collector</h1>
+<pre>
+I want to collect every photon you have ever emitted
+And hunt them all down throughout the galaxy
+
+Equipped with my electromagnetic butterfly net,
+Some mason jars, and my own silhouette
+Out the window of my spaceboat, my feet on the controls
+I'm swirling around the edge of black holes
+
+As I catch the last one, just on the fringe of the event horizon
+I now understand these jars were made to keep fireflies in
+
+</pre>
+<p><i>14th July 2016</i></p>
+<br><br>
+
+
+<h1>Pigeon Post</h1>
+<pre>
+Pigeon Post
+How many carrier pigeons to send you to me?
+And if we're being pragmatic, for what kind of fee?
+
+I would lick all the envelopes
+But my tongue would not be able to sing your praises
+Death by a thousand papercuts
+In the hope of avoiding some greater malaises
+
+I'm unsure of how well the postal service would mishandle you
+But I'm certain the birds won't, as they've got none nevermind two
+It's no insult and I'm not mad or off my rocker
+To suggest that you wouldn't fit in an Amazon locker
+
+I ran the numbers and it would take 800 pigeons, which may not be legal
+But we could also get it done with just 24 eagles
+
+</pre>
+<p><i>14th July 2016</i></p>
+<br><br>
+
+
+<h1>Let me be the abode of the gods</h1>
+<pre>
+I want to take you to beautiful places
+Because they are where you belong
+I'm at ease when we're in a museum together
+But can't keep you in there for long
+
+Their two feet away, no touching restrictions,
+No flash-photography self-contradictions
+Are moot, for you burn brighter than any Xenon tube
+Yet they let you in and I can't keep my hands off you
+
+Pavements crack and trees topple as they crane their necks to see
+Distracted birds smash into café windows, splashing down in cups of tea
+I thought my wings were well built for flight
+I thought I was good at converting sunlight
+
+Two of them quip as passers-by trip
+But my is she dazzling and by god she soars
+If Helen could launch a thousand ships
+She could staunch a thousand wars
+
+</pre>
+<p><i>14th &amp; 15th July 2016</i></p>
+<br><br>
+
+
+<h1>Compass</h1>
+<pre>
+They told me that just because two words look similar doesn't mean that they will rhyme
+I told them they didn't know what they were talking about, I do this all the time
+I know my way around poetry I don't need a motherfucking compass
+I know my way around you too and my god dat ass
+
+</pre>
+<p><i>15th July 2016</i></p>
+<br><br>
+
+
+<h1>I Will Let You Down</h1>
+<pre>
+I will let you down
+  from counter-tops &amp; bookshelves, much too tall for ourselves
+I will let you down
+  from trees climbed, rubbing your hands clean of some mossy slime
+I will let you down
+  from the attic with photographs, holding back embarrassed laughs
+I will let you down
+  stairs to blow out candles, as we grow old enough to consider socks and sandals
+
+</pre>
+<p><i>25th February 2017</i></p>
+<br><br>
+
+</body>
+</html>
