@@ -39,3 +39,28 @@ a:active {
     color: black;
     text-decoration: none;
 }
+
+.button {
+    background-color: #4a9eda;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 4px 2px;
+    text-align: center;
+    /*text-decoration: none;*/
+    display: inline-block;
+    font-size: 18px;
+    font-family: serif;
+}
+
+.numericalInput {
+    text-align: left;
+    display: block;
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+/*.button:hover {
+	background-color: #e7e7e7;
+}*/
