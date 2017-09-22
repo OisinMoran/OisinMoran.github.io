@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+<style>
+
+@font-face {
+  font-family: magnificat;
+  src: url(Magnificat.ttf);
+}
+
+@font-face {
+  font-family: hobo;
+  src: url(HoboStd.otf);
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: multiply;
+}
+
+.C {
+  color: #00adef;
+  font-size: 500px;
+  font-family: Libre Baskerville, serif;
+}
+
+.M {
+  color: #ec008b;
+  font-size: 600px;
+  font-family: magnificat;
+}
+
+.Y {
+  color: #fff100;
+  font-size: 500px;
+  font-family: hobo;
+}
+
+.Input {
+  text-align: center;
+  display: block;
+  margin: auto;
+  width: 5%;
+  padding: 10px;
+}
+
+</style>
+<script>
+
+function print(message, id) {
+  const outputDiv = document.getElementById(id);
+  outputDiv.innerHTML = message;
+}
+
+function update() {
+  console.log(document.getElementById("input1").value);
+  let newLetter = document.getElementById("input1").value.toUpperCase();
+  print(newLetter, "C");
+  print(newLetter, "M");
+  print(newLetter, "Y");
+}
+
+</script>
+</head>
+
+<body>
+<input class="Input" id="input1" type="text" value = "A" oninput="update()">
+
+<div class="container"><div class="C" id="C">A</div></div>
+<div class="container"><div class="M" id="M">A</div></div>
+<div class="container"><div class="Y" id="Y">A</div></div>
+
+</body>
+</html>
