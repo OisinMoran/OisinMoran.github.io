@@ -14,7 +14,7 @@
   src: url(HoboStd.otf);
 }
 
-.container {
+.C {
   height: 100%;
   width: 100%;
   display: flex;
@@ -22,23 +22,34 @@
   align-items: center;
   justify-content: center;
   mix-blend-mode: multiply;
-}
-
-.C {
   color: #00adef;
   font-size: 500px;
   font-family: Libre Baskerville, serif;
 }
 
 .M {
+  height: 115%;
+  width: 87%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: multiply;
   color: #ec008b;
   font-size: 600px;
   font-family: magnificat;
 }
 
 .Y {
+  height: 104%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: multiply;
   color: #fff100;
-  font-size: 500px;
+  font-size: 450px;
   font-family: hobo;
 }
 
@@ -59,7 +70,6 @@ function print(message, id) {
 }
 
 function update() {
-  console.log(document.getElementById("input1").value);
   let newLetter = document.getElementById("input1").value.toUpperCase();
   print(newLetter, "C");
   print(newLetter, "M");
@@ -68,13 +78,10 @@ function update() {
 
 </script>
 </head>
-
 <body>
-<input class="Input" id="input1" type="text" value = "A" oninput="update()">
-
-<div class="container"><div class="C" id="C">A</div></div>
-<div class="container"><div class="M" id="M">A</div></div>
-<div class="container"><div class="Y" id="Y">A</div></div>
-
+  <input class="Input" id="input1" type="text" value="A" oninput="update()">
+  <div class="C" id="C">A</div>
+  <div class="M" id="M">A</div>
+  <div class="Y" id="Y">A</div>
 </body>
 </html>
