@@ -33,9 +33,9 @@ a:visited {
 a:hover {
 	text-decoration: underline;
 	text-decoration-skip: ink;
-	-webkit-text-decoration-color: red;
-  	text-decoration-color: red;
-    color: red;
+	-webkit-text-decoration-color: #FF8C8C;
+  	text-decoration-color: #FF8C8C;
+    color: #FF8C8C;
 }
 
 /* selected link */
