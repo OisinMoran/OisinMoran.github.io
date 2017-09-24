@@ -79,7 +79,7 @@ function print_linear_recurrence(lrr) {
 			coeff = round_floating_errors(coeff);
 			if (Math.abs(coeff) < tolerance && i !== lrr.coeffs.length - 1){
 				continue;
-			} else if (coeff === -1 < tolerance){
+			} else if (coeff === -1){
 				html += "-";
 			} else if (coeff === 1 && leading_flag){
 				html += "";
