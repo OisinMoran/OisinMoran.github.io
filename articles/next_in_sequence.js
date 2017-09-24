@@ -22,16 +22,6 @@ function print(message, id) {
 	output.innerHTML = message;
 }
 
-function sign_format(coeff, leading_flag) {
-	if(leading_flag && coeff === -1){
-		return '-';
-	} else if (leading_flag) {
-		return '';
-	} else {
-		return (coeff<0?'':'+');
-	}
-}
-
 function find_polynomial(sequence) {
 	const len = sequence.length;
 	let M = [];
@@ -45,36 +35,47 @@ function find_polynomial(sequence) {
 	return math.lusolve(M, sequence);
 }
 
-// TO DO: Fix this to deal with exponential form (e.g. input of "1,2,4,8" gives v small number)
+// TO DO: Fix this to deal with exponential form (e.g. input of "1,2,4,8" gives v small number) and general number formatting
+// -> round(coeff, 4)
+// My god, human beings are awkward
 function print_polynomial(coeffs) {
+	console.log(coeffs)
 	let html = "$$f(x)=";
 	let leading_flag = true;
+
+
 	for(let i = coeffs.length-1; i >= 0; i--){
 		let coeff = coeffs[i][0];
 		let exp = i;
 
+		// Coefficients
+		if (leading_flag && exp === 0){
+			html += coeff;
+			continue;
+		} else if (coeff === 0){
+			continue;
+		} else if (coeff === -1 && exp !== 0){
+			html += "-";
+		} else if (coeff === -1){
+			html += coeff;
+		} else if (coeff === 1 && leading_flag && exp !== 0){
+			html += "";
+		} else if (coeff === 1 && exp !== 0){
+			html += "+";
+		} else if (coeff > 0 && leading_flag){
+			html += coeff;
+		} else if (coeff > 0){
+			html += "+" + coeff;
+		} else {
+			html += coeff;
+		}
+
+		// X terms
 		if (exp === 1){
-			exp = "";
+			html += "x"
+		} else if (exp >= 2){
+			html += "x^{" + exp + "}"
 		}
-
-		if(coeff === 0){
-			continue;
-		} else if ((coeff === 1 || coeff === -1) && exp !== 0){
-			html += sign_format(coeff, leading_flag) + "x^{" + exp + "}";
-			leading_flag = false;
-			continue;
-		}
-
-		if (exp === 0 && leading_flag === true) {
-			html += round(coeff, 4);
-			leading_flag = false;
-			continue;
-		} else if (exp === 0){
-			html += sign_format(coeff, leading_flag) + round(coeff, 4);
-			leading_flag = false;
-			continue;
-		} 
-		html += sign_format(coeff, leading_flag) + round(coeff, 4) + "x^{" + exp + "}";
 		leading_flag = false;
 	}
 	html += "$$";
