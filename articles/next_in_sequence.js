@@ -39,7 +39,6 @@ function find_polynomial(sequence) {
 // -> round(coeff, 4)
 // My god, human beings are awkward
 function print_polynomial(coeffs) {
-	console.log(coeffs)
 	let html = "$$f(x)=";
 	let leading_flag = true;
 
