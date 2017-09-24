@@ -83,7 +83,7 @@ function print_linear_recurrence(lrr) {
 				html += "-";
 			} else if (coeff === 1 && leading_flag){
 				html += "";
-			} else if (coeff === 1 < tolerance){
+			} else if (coeff === 1){
 				html += "+";
 			} else if (coeff < 0 || leading_flag){
 				html += coeff;
