@@ -1,3 +1,11 @@
+// TODO: 
+// Named sequences?
+// Trivia e.g. LOST
+// OEIS search
+// Complexity battle
+// LRR + c
+// frational format?
+
 const tolerance = 1e-6;
 
 function round_floating_errors(number){
@@ -77,7 +85,7 @@ function print_linear_recurrence(lrr) {
 		for (i = 0; i < lrr.coeffs.length; i++) {
 			coeff = lrr.coeffs[i][0];
 			coeff = round_floating_errors(coeff);
-			if (Math.abs(coeff) < tolerance && i !== lrr.coeffs.length - 1){
+			if (coeff === 0 && !(leading_flag && i === lrr.coeffs.length - 1)){
 				continue;
 			} else if (coeff === -1){
 				html += "-";
