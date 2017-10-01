@@ -1,10 +1,14 @@
 // TODO: 
+// CHange name to Sequence AutoComplete
+// Autocomplete values
+// Round to 4 dps
 // Named sequences?
 // Trivia e.g. LOST
 // OEIS search
 // Complexity battle
 // LRR + c
 // frational format?
+// Make more robust
 
 const tolerance = 1e-6;
 
@@ -95,16 +99,18 @@ function generate_seq_with_const(coeffs, initial_vals, length){
     return false;
 }
 
-//console.log(generate_seq_with_const([6,-1,-2],[1,3],10));
-console.log(create_coeff_matrix([1,3,15,85,493], 3));
-
 function find_linear_recurrence(sequence) {
 	const len = sequence.length;
 	// Maximum order is half sequence length
 	for(let order = 1; order <= len/2; order++){
 		let initial_vals = sequence.slice(0, order);
 		let M = create_coeff_matrix(sequence, order);
-		let coeffs = math.lusolve(M, sequence.slice(order, 2*order));
+		let coeffs = 0;
+		try {
+			coeffs = math.lusolve(M, sequence.slice(order, 2*order));
+		} catch (err) {
+			coeffs = false;
+		}
 		// Check proposed recurence relation satisfies all data
 		let predicted = generate_seq(coeffs, initial_vals, len);
 		let diff = math.subtract(predicted, sequence);
@@ -121,8 +127,12 @@ function find_linear_recurrence_with_const(sequence) {
 	for(let order = 1; order <= len/2; order++){
 		let initial_vals = sequence.slice(0, order);
 		let M = create_coeff_matrix_with_const(sequence, order+1);
-		console.log(M);
-		let coeffs = math.lusolve(M, sequence.slice(order-1, 2*order-1));
+		let coeffs = 0
+		try {
+			coeffs = math.lusolve(M, sequence.slice(order-1, 2*order-1));
+		} catch (err) {
+			coeffs = false;
+		}
 		// Check proposed recurence relation satisfies all data
 		let predicted = generate_seq_with_const(coeffs, initial_vals, len);
 		let diff = math.subtract(predicted, sequence);
@@ -133,7 +143,6 @@ function find_linear_recurrence_with_const(sequence) {
 	return false;
 }
 
-console.log(find_linear_recurrence_with_const([1,3,15,85,493]));
 
 function print_linear_recurrence(lrr) {
 	let html = "";
@@ -221,7 +230,13 @@ function find_polynomial(sequence) {
 		}
 		M.push(row);
 	}
-	return math.lusolve(M, sequence);
+	try {
+		return math.lusolve(M, sequence);
+	} 
+	catch(err) {
+		return false;
+	}
+	
 }
 
 // TO DO: Fix this to deal with exponential form (e.g. input of "1,2,4,8" gives v small number) and general number formatting
@@ -283,8 +298,8 @@ function main() {
 	const linear_recurrence = find_linear_recurrence(sequence);
 	print_linear_recurrence(linear_recurrence);
 
-	const linear_recurrence_with_const = find_linear_recurrence_with_const(sequence);
-	print_linear_recurrence_with_const(linear_recurrence_with_const);
+	//const linear_recurrence_with_const = find_linear_recurrence_with_const(sequence);
+	//print_linear_recurrence_with_const(linear_recurrence_with_const);
 	// Rerun MathJax
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
