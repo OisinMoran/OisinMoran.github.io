@@ -9,6 +9,7 @@
 // LRR + c
 // frational format?
 // Make more robust
+// 1, 1, 2, 3, 3, 1 for lrr gives things that ned to be rounded
 
 const tolerance = 1e-6;
 
@@ -16,7 +17,9 @@ function round_floating_errors(number){
 	if (Math.abs(Math.round(number)-number) < tolerance){
 		return Math.round(number);
 	} else {
-		return number;
+		// Hacky method to get max 4 decimal places of precision
+		// but remove trailing zeroes
+		return (number.toFixed(4).toString() * 1).toString();
 	}
 }
 
@@ -236,7 +239,19 @@ function find_polynomial(sequence) {
 	catch(err) {
 		return false;
 	}
-	
+}
+
+function generate_poly(coeffs, length) {
+	const width = coeffs.length;
+	let M = [];
+	for(let i = 0; i < length; i++){
+		row = [];
+		for(let j = 0; j < width; j++){
+			row.push(i**j);
+		}
+		M.push(row);
+	}
+	return math.multiply(M,coeffs);
 }
 
 // TO DO: Fix this to deal with exponential form (e.g. input of "1,2,4,8" gives v small number) and general number formatting
@@ -283,6 +298,14 @@ function print_polynomial(coeffs) {
 	print(html, "poly");
 }
 
+function round_seq(sequence) {
+	let rounded_seq = sequence;
+	for (let i = 0; i < sequence.length; i++){
+		rounded_seq[i] = round_floating_errors(sequence[i]);
+	}
+	return rounded_seq;
+}
+
 function parse_input() {
 	let sequence = document.getElementById("input1").value.split(/[ ,]+/);
 	sequence = sequence.filter(elem => elem.length > 0);
@@ -292,11 +315,23 @@ function parse_input() {
 
 function main() {
 	const sequence = parse_input();
+
+	// Polynomial
 	const polynomial = find_polynomial(sequence);
 	print_polynomial(polynomial);
+	let rounded_seq = round_seq(generate_poly(polynomial, 10));
+	print(rounded_seq.join(', '), "poly_seq");
 
+	// Linear Recurrence
 	const linear_recurrence = find_linear_recurrence(sequence);
 	print_linear_recurrence(linear_recurrence);
+	if(linear_recurrence){
+		let lrr = generate_seq(linear_recurrence.coeffs, linear_recurrence.initial_vals, 10);
+		lrr = round_seq(lrr);
+		print(lrr.join(', '), "lrr_seq");
+	} else {
+		print("","lrr_seq");
+	}
 
 	//const linear_recurrence_with_const = find_linear_recurrence_with_const(sequence);
 	//print_linear_recurrence_with_const(linear_recurrence_with_const);

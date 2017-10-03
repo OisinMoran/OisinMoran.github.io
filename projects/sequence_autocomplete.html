@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#ff8c8c">
 
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Next In Sequence</title>
+<title>Oisín Moran | Sequence Autocomplete</title>
 <link rel="stylesheet" type="text/css" href="../main.css" />
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -17,22 +17,23 @@
 </head>
 <body>
 
-<h1>Next In Sequence</h1>
+<h1>Sequence Autocomplete</h1>
 
-<!-- TO DO: default value -->
 <input class="numericalInput" id="input1" type="text" value="1,1,2,3" oninput="main()">
 
 <h2>Polynomial</h2>
+<div id="poly_seq"></div>
 <div id="poly"></div>
 
 <h2>Linear Recurrence Relation</h2>
+<div id="lrr_seq"></div>
 <div id="lrr"></div>
 
-<h2>Recurrence Relation With Constant</h2>
-<div id="lrr_c"></div>
+<!--<h2>Recurrence Relation With Constant</h2>
+<div id="lrr_c"></div>-->
 
 <script src="math.min.js" type="text/javascript"></script>
-<script src="next_in_sequence.js"></script>
+<script src="sequence_autocomplete.js"></script>
 <script>main();</script>
 </body>
 </html>
