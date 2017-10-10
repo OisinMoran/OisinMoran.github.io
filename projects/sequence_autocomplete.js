@@ -315,18 +315,20 @@ function parse_input() {
 
 function main() {
 	const sequence = parse_input();
+	const len = sequence.length;
+	const num_next_terms = 5;
 
 	// Polynomial
 	const polynomial = find_polynomial(sequence);
 	print_polynomial(polynomial);
-	let rounded_seq = round_seq(generate_poly(polynomial, 10));
+	let rounded_seq = round_seq(generate_poly(polynomial, len+num_next_terms));
 	print(rounded_seq.join(', '), "poly_seq");
 
 	// Linear Recurrence
 	const linear_recurrence = find_linear_recurrence(sequence);
 	print_linear_recurrence(linear_recurrence);
 	if(linear_recurrence){
-		let lrr = generate_seq(linear_recurrence.coeffs, linear_recurrence.initial_vals, 10);
+		let lrr = generate_seq(linear_recurrence.coeffs, linear_recurrence.initial_vals, len+num_next_terms);
 		lrr = round_seq(lrr);
 		print(lrr.join(', '), "lrr_seq");
 	} else {

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oisín Moran</title>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+body {
+	margin: 40px auto;
+	max-width: 650px;
+	line-height: 1.6;
+	font-size: 18px;
+	color: #444;
+	padding: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1,h2,h3 {
+    font-family: 'Roboto', sans-serif;
+	line-height: 1.2;
+}
+
+h2 {
+    padding:0; 
+    margin-bottom: 0;
+}
+
+.faulty {
+	margin-left: -10px;
+	padding-left: 10px;
+    box-shadow: -10px 0px 0px #f44;
+}
+
+.fine {
+	margin-left: -25px;
+	padding-left: 25px;
+    box-shadow: -10px 0px 0px #888;
+}
+
+.step {
+	display: inline-block;
+}
+
+.fine_step, .fine_assumption{
+	display: inline-block;
+}
+
+.faulty_step, .faulty_assumption{
+	color: #f44;
+	display: inline-block;
+}
+
+.conflict {
+	color: #f44;
+}
+
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  	jax: ["input/TeX","output/HTML-CSS"],
+    displayAlign: "left",
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script>
+	function expand() {
+		let steps = document.getElementsByClassName("step");
+		for (let i=0; i < steps.length; i++){
+			steps[i].style.display = "inline-block";
+		}
+	}
+
+	function collapse() {
+		let steps = document.getElementsByClassName("step");
+		for (let i=0; i < steps.length; i++){
+			steps[i].style.display = "none";
+		}
+	}
+</script>
+
+</head>
+<body>
+
+<h1>Derivation</h1>
+
+<h2>About</h2>
+<p>
+This is a prototype for a tool with the ambitious intention of becoming the standard format for derivations.
+The tool aims to do several things: 
+<ul>
+	<li>Chiefly, to become an environment to sanely create, share, and understand important derivations.</li>
+	<li>Propagate and make visible the assumptions made at every step in a derivation, thereby clarifying limitations, approximations, and possible errors.</li>
+	<li>Give a fully expandable/collapsible explanation for every step -- utilising prerequisite knowledge and/or skills to compress the derivation 
+	(e.g. if the chain rule is known, a step could read "take the derivative", if it is not there could be an embedded explanation).</li>
+	<li>(Stretch goal: To become a new medium of thought -- Smart Paper -- combining character recognition, symbolic computation, spaced repetition 
+	(so you never forget how to do the steps you have collapsed), and anything else with the ability to increase your efficacy as a thinker. Whether it be in the form of increasing creativity or ensuring much fewer mistakes in your reasoning.)</li>
+</ul>
+</p>
+
+<h2>Example (2=1)</h2>
+
+<span class = "step">
+	Let
+</span>
+
+<span class="line">
+<span class = "conflict">
+$$a = b$$
+</span>
+</span>
+
+<span class = "step">
+	Multiply both sides by $a$
+</span>
+
+<span class="line">
+$$a^2 = ab$$
+</span>
+
+<span class = "step">
+	Subtract $b^2$ from both sides
+</span>
+
+<span class="line">
+$$a^2-b^2 = ab-b^2$$
+</span>
+
+<span class = "step">
+	Factorize (difference of squares and common term)
+</span>
+
+<span class="line">
+$$(a+b)(a-b) = b(a-b)$$
+</span>
+
+<div class = "faulty">
+	<span class = "faulty_step">
+		Divide both sides by $(a-b)$
+	</span>
+	<span class = "faulty_assumption">
+		[only valid if $a-b \ne 0$]
+	</span>
+
+	<span class="line">
+	$$a+b = b$$
+	</span>
+
+	<span class = "step">
+		Substitution $(a=b)$
+	</span>
+
+	<span class="line">
+	$$2b = b$$
+	</span>
+
+	<div class = "fine">
+		<span class = "fine_step">
+			Divide both sides by $b$
+		</span>
+		<span class = "fine_assumption">
+			[only valid if $b \ne 0$]
+		</span>
+
+		<span class="line">
+		$$2 = 1$$
+		</span>
+	</div>
+</div>
+
+</body>
+</html>
