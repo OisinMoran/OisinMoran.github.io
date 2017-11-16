@@ -57,11 +57,12 @@ function bfs(rootNode, targetNumber) {
                 depth: currentDepth+1
             });
             // factorial
-            if (Number.isInteger(currentValue)) {
+            // Factorial was last step so must bracket previous "!"
+            if (Number.isInteger(currentValue) && (currentPath[currentPath.length - 1] == "!")) {
             	try {
             		frontier.push({
             			value: factorial(currentValue), 
-            			path: currentPath + "!", 
+            			path: "\\left(" + currentPath + "\\right)!", 
             			wolframPath: "(" + currentNode.wolframPath + ")!",
                         english: "the factorial of " + currentNode.english,
                         depth: currentDepth+1
@@ -69,6 +70,18 @@ function bfs(rootNode, targetNumber) {
             	} catch (e) {
             		// nothing
             	}
+            } else if (Number.isInteger(currentValue)) { // don't need to bracket "!" here as no ambiguity
+                try {
+                    frontier.push({
+                        value: factorial(currentValue), 
+                        path: currentPath + "!", 
+                        wolframPath: "(" + currentNode.wolframPath + ")!",
+                        english: "the factorial of " + currentNode.english,
+                        depth: currentDepth+1
+                    }); 
+                } catch (e) {
+                    // nothing
+                }
             }
         } else {
             return currentNode;
