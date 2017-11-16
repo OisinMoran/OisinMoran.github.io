@@ -161,7 +161,8 @@ function performSearch() {
 
 	goalNode = bfs(rootNode, targetNumber);	
     output += "$$" + targetNumber + " = " + goalNode.path + "$$";
-	output += '<a href="http://www.wolframalpha.com/input/?i=' + goalNode.wolframPath + '">Verify with WolframAlpha</a><br>';
+	output += '<a href="http://www.wolframalpha.com/input/?i=' + goalNode.wolframPath 
+           + '">Verify with WolframAlpha</a> (Cannot handle some of the deeper ones)<br>';
     output += '<p>Depth: ' + goalNode.depth + '</p>'
     output += '<p>In other words: ' + goalNode.english + '</p>'
 
