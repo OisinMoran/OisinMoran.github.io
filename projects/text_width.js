@@ -49,7 +49,8 @@ function getPtForWidth(string, goal_width){
 
 function display_line(string, width){
 	let pt = getPtForWidth(string, width);
-	document.getElementById('front').innerHTML += '<span id="line" style="font:bold ' + pt + 'pt arial;background-color: white;">' + string + '</span><br>';
+	document.getElementById('rect_text').innerHTML += 
+	'<span style="font:bold ' + pt + 'pt arial;">' + string + '</span><br>';
 }
 
 function rectify(text, width){
@@ -57,7 +58,7 @@ function rectify(text, width){
 	lines = lines.filter(x => x); // Remove empty lines
 	let n = lines.length;
 	// Reset
-	document.getElementById('front').innerHTML = '';
+	document.getElementById('rect_text').innerHTML = '';
 	for(let i=0; i<n; i++){
 		display_line(lines[i], width);
 	}
