@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oisín Moran</title>
+<!--<link rel="stylesheet" type="text/css" href="https://oisinmoran.com/main.css" />-->
+<style>
+	body {
+		text-align: center;
+	}
+
+	#front {
+	    
+	    z-index: 2;
+	}
+
+	#back {
+	    position: fixed;
+	    z-index: 1;
+	}
+
+</style>
+</head>
+<body>
+
+<textarea id="text_input" rows="4" cols="50" oninput="main()">
+Hello Hello
+Hello
+Hello Hello Hello</textarea>
+
+	<div id="front"></div>
+	<div id="back">
+		<svg width="400" height="800">
+		  <rect width="400" height="800" style="fill:white;" />
+		</svg>
+	</div>
+
+<script src="text_width.js"></script>
+</body>
+
+</html>
