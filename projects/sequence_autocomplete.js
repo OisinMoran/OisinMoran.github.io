@@ -1,15 +1,12 @@
 // TODO: 
-// CHange name to Sequence AutoComplete
-// Autocomplete values
-// Round to 4 dps
+// UI Update
 // Named sequences?
 // Trivia e.g. LOST
 // OEIS search
 // Complexity battle
 // LRR + c
-// frational format?
+// Fractional format?
 // Make more robust
-// 1, 1, 2, 3, 3, 1 for lrr gives things that ned to be rounded
 
 const tolerance = 1e-6;
 
