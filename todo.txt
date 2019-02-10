@@ -5,6 +5,7 @@ Website to do
 [] Try out/switch to KaTeX
 	[] If that is not fast enough switch logo to image
 [] Put logo on left
+[] Add some bio
 
 [] Momentum Sprint
 [] Bending Spectra
