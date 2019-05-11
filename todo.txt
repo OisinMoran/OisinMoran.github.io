@@ -1,13 +1,14 @@
 Website to do
 -------------
 
-[] Clean up
 [x] Try out/switch to KaTeX
 	[-] If that is not fast enough switch logo to image
+[x] Compress photos
+[] Clean up
 [] Put logo on left
 [] Add some bio
 [] Fix poetry formatting (unusable on mobile)
-[] Compress photos
+
 
 [] Momentum Sprint
 [] Bending Spectra
