@@ -334,6 +334,4 @@ function main() {
 
 	//const linear_recurrence_with_const = find_linear_recurrence_with_const(sequence);
 	//print_linear_recurrence_with_const(linear_recurrence_with_const);
-	// Rerun MathJax
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }

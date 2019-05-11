@@ -166,6 +166,5 @@ function performSearch() {
     output += '<p>Depth: ' + goalNode.depth + '</p>'
     output += '<p>In other words: ' + goalNode.english + '</p>'
 
-	print(output);
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	print(output);  
 }
