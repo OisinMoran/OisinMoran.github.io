@@ -6,6 +6,8 @@ Website to do
 	[-] If that is not fast enough switch logo to image
 [] Put logo on left
 [] Add some bio
+[] Fix poetry formatting (unusable on mobile)
+[] Compress photos
 
 [] Momentum Sprint
 [] Bending Spectra
