@@ -28,18 +28,11 @@ Future versions will incude various other search algorithms to demonstrate the i
 The smallest positive integer that eludes this current implementation is 9.
 </p>
 
-<input class="numericalInput" id="input1" type="number" min="1" value="1" oninput="performSearch()">
+<input class="numericalInput" id="input1" type="number" min="1" value="1" oninput="performSearch();renderMathInElement(document.body);">
 
 <div id="result"></div>
 
 <script src="root_floor_fact_four.js"></script>
 <script>performSearch();</script>
-<script>
-    document.getElementById("input1").addEventListener("click", function() {
-        renderMathInElement(document.body, {
-            // ...options...
-        });
-    });
-</script>
 </body>
 </html>
