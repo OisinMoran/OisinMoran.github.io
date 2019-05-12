@@ -73,3 +73,7 @@ a:active {
 /*.button:hover {
 	background-color: #e7e7e7;
 }*/
+
+.poem {
+    font-family: 'Cutive Mono', monospace;
+}
