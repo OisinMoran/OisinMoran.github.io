@@ -4,12 +4,15 @@ Website to do
 [x] Try out/switch to KaTeX
 	[-] If that is not fast enough switch logo to image
 [x] Compress photos
+[x] Fix poetry formatting (unusable on mobile)
 [] Clean up
 [] Put logo on left
 [] Add some bio
-[] Fix poetry formatting (unusable on mobile)
 
 
 [] Momentum Sprint
 [] Bending Spectra
+[] General Interpolation
+[] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
+
 [] How to vote on a voting system
