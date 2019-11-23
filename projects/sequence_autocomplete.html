@@ -20,8 +20,9 @@
 <body>
 
 <h1>Sequence Autocomplete</h1>
+<p>This is very much a work in progress so excuse the rough edges, but I thought it was useful enough in its current state to put out. To compensate for the unfinished nature, the input is very forgiving and allows a rather unholy mix of commas and spaces.</p>
 
-<input class="numericalInput" id="input1" type="text" value="1,1,2,3" oninput="main();renderMathInElement(document.body);">
+<input class="numericalInput" id="input1" type="text" value="1,1,2 3" oninput="main();renderMathInElement(document.body);">
 
 <h2>Polynomial</h2>
 <div id="poly_seq"></div>
@@ -31,8 +32,8 @@
 <div id="lrr_seq"></div>
 <div id="lrr"></div>
 
-<!--<h2>Recurrence Relation With Constant</h2>
-<div id="lrr_c"></div>-->
+<h2>Recurrence Relation with Constant (coming soon)</h2>
+<!-- <div id="lrr_c"></div> -->
 
 <script src="math.min.js" type="text/javascript"></script>
 <script src="sequence_autocomplete.js"></script>

@@ -20,51 +20,53 @@
   src: url(HoboStd.otf);
 }
 
-.C {
-  height: 100%;
+.C, .M, .Y {
+  height: 104%;
   width: 100%;
   display: flex;
   position: fixed;
   align-items: center;
   justify-content: center;
   mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.C {
+  height: 100%;
   color: #00adef;
   font-size: 500px;
   font-family: Libre Baskerville, serif;
 }
 
 .M {
-  height: 104%;
   width: 87%;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  mix-blend-mode: multiply;
   color: #ec008b;
   font-size: 600px;
   font-family: magnificat;
 }
 
 .Y {
-  height: 104%;
-  width: 100%;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  mix-blend-mode: multiply;
   color: #fff100;
   font-size: 450px;
   font-family: hobo;
 }
 
-.Input {
+input {
   text-align: center;
-  display: block;
   margin: auto;
-  width: 5%;
   padding: 10px;
+  z-index: 9001;
+}
+
+.input-wrapper {
+  min-width: 5%;
+  display: flex;
+}
+
+@media print {
+  .input-wrapper {
+    display: none;
+  }
 }
 
 </style>
@@ -86,9 +88,13 @@ function update() {
 
 </head>
 <body>
-  <input class="Input" id="input1" type="text" value="A" oninput="update()">
-  <div class="C" id="C">A</div>
-  <div class="M" id="M">A</div>
-  <div class="Y" id="Y">A</div>
+  <div class="input-wrapper">
+    <input id="input1" type="text" value="A" oninput="update()"
+      autofocus onfocus="this.setSelectionRange(this.value.length,this.value.length);"
+    >
+  </div>
+    <div class="C" id="C">A</div>
+    <div class="M" id="M">A</div>
+    <div class="Y" id="Y">A</div>
 </body>
 </html>

@@ -12,5 +12,6 @@ K-9
 Marvin
 Optimus Prime
 R2D2
+Sonny
 TARS
 WALL·E
