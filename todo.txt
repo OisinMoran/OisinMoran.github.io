@@ -13,6 +13,7 @@ Website to do
 [] Momentum Sprint
 [] Bending Spectra
 [] General Interpolation
-[] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
+[x] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
 
 [] How to vote on a voting system
+[] Add a readme
