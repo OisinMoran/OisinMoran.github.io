@@ -78,3 +78,18 @@ a:active {
 .poem {
     font-family: 'Cutive Mono', monospace;
 }
+
+.em-peach.em-svg {
+    background: url("https://twemoji.maxcdn.com/2/72x72/1f351.png");
+    background-image: url("https://twemoji.maxcdn.com/2/svg/1f351.svg"), none;
+}
+
+.em-sweat_drops.em-svg {
+    background: url("https://twemoji.maxcdn.com/2/72x72/1f4a6.png");
+    background-image: url("https://twemoji.maxcdn.com/2/svg/1f4a6.svg"), none;
+}
+
+.em-eggplant.em-svg {
+    background: url("https://twemoji.maxcdn.com/2/72x72/1f346.png");
+    background-image: url("https://twemoji.maxcdn.com/2/svg/1f346.svg"), none;
+}
