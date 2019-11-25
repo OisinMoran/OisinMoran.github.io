@@ -11,13 +11,13 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1,h2,h3 {
+h1, h2, h3 {
     font-family: 'Roboto', sans-serif;
 	line-height: 1.2;
 }
 
-h2 {
-    padding:0; 
+h2, h3 {
+    padding: 0; 
     margin-bottom: 0;
 }
 
@@ -39,9 +39,9 @@ a:visited {
 a:hover {
 	text-decoration: underline;
 	text-decoration-skip: ink;
-	-webkit-text-decoration-color: #FF8C8C;
-  	text-decoration-color: #FF8C8C;
-    color: #FF8C8C;
+	-webkit-text-decoration-color: #ff8c8c;
+  	text-decoration-color: #ff8c8c;
+    color: #ff8c8c;
 }
 
 /* selected link */
