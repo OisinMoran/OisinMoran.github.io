@@ -14,6 +14,8 @@ Website to do
 [] Bending Spectra
 [] General Interpolation
 [x] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
+    [] write intro
+    [] clean up
 
 [] How to vote on a voting system
 [] Add a readme
