@@ -7,7 +7,7 @@ Website to do
 [x] Fix poetry formatting (unusable on mobile)
 [] Clean up
 [] Put logo on left
-[] Add some bio
+[] Add some bio (about section)
 
 
 [] Momentum Sprint
@@ -16,6 +16,10 @@ Website to do
 [x] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
     [] write intro
     [] clean up
+[] RFFF
+    [] Add bit about weird notations (!! and sqrt)
+    [] Get ID DFS working (find 9 !!!)
+
 
 [] How to vote on a voting system
 [] Add a readme
