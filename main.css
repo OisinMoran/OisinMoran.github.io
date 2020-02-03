@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');*/
 @import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Martel+Sans:300&display=swap');
 
 body {
 	margin: 40px auto;
@@ -8,11 +10,13 @@ body {
 	font-size: 18px;
 	color: #444;
 	padding: 0 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Martel Sans', sans-serif;
+    font-weight: 300;
 }
 
-h1, h2, h3 {
-    font-family: 'Roboto', sans-serif;
+h1, h2, h3 { 
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
 	line-height: 1.2;
 }
 
@@ -92,4 +96,12 @@ a:active {
 .em-eggplant.em-svg {
     background: url("https://twemoji.maxcdn.com/2/72x72/1f346.png");
     background-image: url("https://twemoji.maxcdn.com/2/svg/1f346.svg"), none;
+}
+
+a.wordlink {
+    visibility: hidden;
+}
+
+h2:hover > a.wordlink {
+    visibility: visible;
 }
