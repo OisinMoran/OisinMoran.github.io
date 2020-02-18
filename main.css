@@ -105,3 +105,9 @@ a.wordlink {
 h2:hover > a.wordlink {
     visibility: visible;
 }
+
+ul.unstyled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

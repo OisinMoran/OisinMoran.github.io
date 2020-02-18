@@ -10,20 +10,22 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oisín Moran | The Mometum Sprint</title>
 <link rel="stylesheet" type="text/css" href="../main.css" />
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 <style>
 table {
+    border: 1px solid #eee;
     border-collapse: collapse;
     width: 100%;
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 0px solid #eee;
     text-align: left;
     padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #eee;
 }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
@@ -36,7 +38,9 @@ tr:nth-child(even) {
 <body>
 
 <h1>The Momentum Sprint</h1>
+Who is literally the most unstoppable person?
 
+<p>
 Intro:
 Rugby, 2012 Olympics etc
 How hard to tackle someone, light but fast still easy
@@ -45,57 +49,58 @@ How hard to tackle someone, light but fast still easy
 
 Results of men's 2012 olympics 100m Sprint:
 Make sortable
-
-<table>
+Add avg speed
+</p>
+<table id="sprint2012">
   <tr>
-    <th>Athlete</th>
-    <th>Weight (kg)</th>
-    <th>Time (s)</th>
-    <th>Avg Momentum (N s)</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(1)')">Athlete</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(2)')">Weight (kg)</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(3)')">Time (s)</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(4)')">Avg Momentum (N s)</th>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Usain Bolt</td>
     <td>94</td>
-    <td><b>9.63</b></td>
+    <td><b>09.63</b></td>
     <td>975.72</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Yohan Blake</td>
     <td>76</td>
-    <td>9.75</td>
+    <td>09.75</td>
     <td>779.76</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Justin Gatlin</td>
     <td>83</td>
-    <td>9.79</td>
+    <td>09.79</td>
     <td>847.43</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Tyson Gay</td>
     <td>77</td>
-    <td>9.80</td>
+    <td>09.80</td>
     <td>785.40</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Ryan Bailey</td>
     <td><b>98</b></td>
-    <td>9.88</td>
+    <td>09.88</td>
     <td><b>991.76</b></td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Churandy Martina</td>
     <td>74</td>
-    <td>9.94</td>
+    <td>09.94</td>
     <td>744.44</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Richard Thompson</td>
     <td>80</td>
-    <td>9.98</td>
+    <td>09.98</td>
     <td>800.80</td>
   </tr>
-  <tr>
+  <tr class="item">
     <td>Asafa Powell (inj)</td>
     <td>87</td>
     <td>12.00</td>
@@ -106,22 +111,30 @@ Make sortable
 Ryan Bailey comes out on top, etc
 
 <h2>Can We Do Better?</h2>
+<p>
 
 The search for more
-Big weight range in sprint
+Big weight range in sprint—22 kg
 
-With Usain Bolt/these people being the fastest men/people on the planet the only way to beat him will be by finding someone heavier.
-Rugby, American football
-Brandon Jacobs ... 
+With Bailey being so close to the 1k N s, it seems like a good milestone
+With these people being literally the fastest humans on the planet the only way to beat them will be by finding someone heavier.
+So we're looking for big people who can run fast. Rugby and American football seem like obvious places to start looking.
+
+Brandon Jacobs ... ~ 1.2?
+
 Explain calculations, have interactive
-1k N s - Good milestone
+
 (references at the bottom or inline?)
 table sortable
 
 spectator sport ...
 
-Dontari Poe
+Dontari Poe ~ 1152.38
 
+Future of the sport
+Weight vest
+Weighing people right before event
+</p>
 
 </body>
 </html>
