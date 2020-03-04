@@ -9,6 +9,8 @@
 
 // [] Figure out weird behaviour with monospace fonts
 
+// still not perfect yet - e.g. Is
+
 var font;
 var canvas = document.createElement("canvas");
 var context = canvas.getContext("2d");
@@ -24,7 +26,7 @@ function getTextMetrics(text, font) {
 
 // Returns the font px to set string to to be goal_width pixels
 function getPxForWidth(string, goal_width) {
-	let tolerance = 0.5; // tolerance in pixels
+	let tolerance = 0.1; // tolerance in pixels
 	let difference = Infinity;
 	let max_px = 10000;
 	let min_px = 0;
@@ -44,7 +46,7 @@ function getPxForWidth(string, goal_width) {
 		}
 		counter++;
 	}
-    // metrics = getTextMetrics(string, font);
+    metrics = getTextMetrics(string, font);
     console.log("MATCH");
     return {font_px: font_px, margin: metrics.actualBoundingBoxLeft};
 }
