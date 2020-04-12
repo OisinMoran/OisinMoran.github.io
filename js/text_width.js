@@ -9,7 +9,7 @@
 
 // [] Figure out weird behaviour with monospace fonts
 
-// still not perfect yet - e.g. Is
+// still not perfect yet - e.g. "I"s, and still weird on first load ...
 
 var font;
 var canvas = document.createElement("canvas");
