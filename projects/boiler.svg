@@ -1,0 +1,19 @@
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style type="text/css">
+      <![CDATA[
+        .filtered{
+          filter: url(#myfilter);
+        }
+      ]]>
+    </style>
+
+    <filter id="myfilter">
+      <feConvolveMatrix order="3,3" kernelMatrix="1 1 1 1 -8 1 1 1 1" in="INPUT" result="EDGES" />
+    </filter>
+  </defs>
+
+  <g class="filtered">
+    <img src="../art/9_IMG_20180901_234119_compressed.jpg"><br>
+  </g>
+</svg>
