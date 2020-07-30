@@ -1,3 +1,14 @@
+<!-- 
+First draft of actual text
+Tag all on Twitter: bolt, bailey, poe, jacobs, thor
+(references at the bottom or inline? or at all?)
+N s to ks m / s
+un-inline styles
+nice blockquotes
+ -->
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +25,16 @@
 <style>
 table {
     border: 1px solid #eee;
+    /*border-radius: 10px;*/
     border-collapse: collapse;
     width: 100%;
+    /*box-shadow: 0px 5px 20px #aaa;*/
 }
 
 td, th {
     border: 0px solid #eee;
+    /*border-radius: 10px;*/
+    /*border-collapse: separate;*/
     text-align: left;
     padding: 8px;
 }
@@ -35,22 +50,41 @@ tr:nth-child(even) {
 <!-- To automatically render math in text elements, include the auto-render extension: -->
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
+
+<script type="text/javascript">
+  function calcMomentum () {
+    const weight = document.getElementById("weight").value;
+    const time = document.getElementById("time").value;
+    const output = document.getElementById("result");
+    output.innerHTML = (weight*time).toFixed(2);
+  }
+</script>
 </head>
 <body>
 
-<h1>The Momentum Sprint</h1>
-Who is literally the most unstoppable person?
+<h1 style="margin-bottom: 0px;">The Momentum Sprint</h1>
+<p><em>or Who is Literally the Most Unstoppable Person?</em></p>
 
 <p>
-Intro:
 Rugby, 2012 Olympics etc
 How hard to tackle someone, light but fast still easy
 (literal light, solar sails etc)
-100m _is_ length of rugby pitch, which may be why Europeans don't use football fields a s unit of measurement.
+
+
+Momentum \((p)\)
+$$p=mv$$
+
+Obviously not all of it - doesn't account for running technique, agility, or anything else
+100&nbsp;m <em>is</em> the length of rugby pitch, which may be why Europeans don't use football fields as a unit of measurement.
+
+Average
+
+kg m/s
+Super simple calculation: multiple the kilograms by the distance then divide by the time
+
+$$p = \frac{\text{mass} \times \text{distance}}{\text{time}}$$
 
 Results of men's 2012 olympics 100m Sprint:
-Make sortable
-Add avg speed
 </p>
 <table id="sprint2012">
   <tr>
@@ -111,41 +145,144 @@ Add avg speed
 
 Ryan Bailey comes out on top, etc
 
+
 <h2>Can We Do Better?</h2>
 <p>
 
-The search for more
-Big weight range in sprint—24 kg
-Big gap in weight between 1st and second place
+<!-- The search for more -->
 
-With Bailey being so close to the 1k N s, it seems like a good milestone
-With these people being literally the fastest humans on the planet the only way to beat them will be by finding someone heavier.
+With these people being literally the fastest humans on the planet, the only way to beat them will be by finding someone heavier.
+The 2012 sprint had a big weight range (24&nbsp;kg) and a big weight difference between first and second place (with Usain Bolt carrying 18&nbsp;kg more than Yohan Blake) so it seems that weight isn't 
+With Bailey being so close to 1k N s, it seems like a good milestone to aim for.
+For the purpose of this exploration we're just going to 
 So we're looking for big people who can run fast. Rugby and American football seem like obvious places to start looking.
 
-Brandon Jacobs ... ~ 1.2?
+[people who are fa*t]
+</p>
 
-Explain calculations, have interactive
+<p>
+<h3>Brandon Jacobs</h3> ... ~ 1.2?
+120 kg
+10.82 s
+9.2421 m/s
+-> 1109
+a former American football running back, who spent the majority of his career with the New York Giants 
+</p>
 
-(references at the bottom or inline?)
-table sortable
+<table id="brandon-jacobs">
+  <tr>
+    <th>Athlete</th>
+    <th>Weight (kg)</th>
+    <th>Time (s)</th>
+    <th>Avg Momentum (N s)</th>
+  </tr>
+  
+  <tr class="item">
+    <td>Brandon Jacobs</td>
+    <td>120</td>
+    <td>10.82</td>
+    <td>1109</td>
+  </tr>
+</table>
+
+Revisit
+40yds in 4.56 s
+120*(36.576/4.56) = 963
+
+Explain calculations
+
+
 
 spectator sport ...
 
-Dontari Poe ~ 1152.38
-
-Future of the sport
-Weight vest
-Weighing people right before event
-
-Any more suggestions contact me on twitter [link to my tweet about this]
+<h3>Dontari Poe</h3><!--  ~ 1152.38
+157 kg
+40yd - 4.98 s
+157*(36.576/4.98) = 1153
+[no 100m info]
+ -->
+<p style="margin-bottom: 0px;"><em>“Can you believe he ran the 40-yard dash in 4.98 seconds? Poe looks like a refrigerator. He’s not supposed to move like that.”</em></p>
+<p style="text-align: right;">
+~ Warren Sapp, former defensive tackle and hall of famer
 </p>
 
-<ul>
-  <li>Make nice carets for search</li>
-  <li>Add interactive calc</li>
-  <li>First draft of actual text</li>
-  <li>Return to sans font</li>
-</ul>
+<table id="poe">
+<!--   <tr>
+    <th>Athlete</th>
+    <th>Weight (kg)</th>
+    <th>Time (s)</th>
+    <th>Avg Momentum (N s)</th>
+  </tr> -->
+  
+  <tr class="item">
+    <td>Dontari Poe</td>
+    <td>157</td>
+    <td>4.98</td>
+    <td>1153</td>
+  </tr>
+</table>
 
+
+<p>
+<h3>Hafþór Júlíus Björnsson, The Mountain</h3>
+Used to play basketball
+How many seconds
+188 kg 
+100/(1153/188)= 16.3 secs
+</p>
+
+<p>
+  <table id="thor">
+    <tr>
+      <th>Athlete</th>
+      <th>Weight (kg)</th>
+      <th>Time (s)</th>
+      <th>Avg Momentum (N s)</th>
+    </tr>
+    
+    <tr class="item">
+      <td>Hafþór Júlíus Björnsson</td>
+      <td>188</td>
+      <td class="lighter">&lt; 16.3?</td>
+      <td class="lighter">&gt; 1153?</td>
+    </tr>
+  </table>
+</p>
+
+
+
+
+<p>Any more suggestions contact <a href="https://twitter.com/TheOisinMoran">me on Twitter</a></p>
+
+
+<h2>Epilogue: The Future of the Sport</h2>
+<p>
+Weighing people right before event, bloated etc
+Weight vest - people could probably improve here, imagine heavier folk will fare best though, much better if that extra weight is actually muscle
+No way Churandy Martina is running anywhere near a comparable time with an extra 20 kg no matter how it's distributed
+
+
+</p>
+
+<p>
+  <table id="you">
+    <tr>
+      <!-- <th>Athlete</th> -->
+      <th>Weight (kg)</th>
+      <th>Time (s)</th>
+      <th>Avg Momentum (N s)</th>
+    </tr>
+    
+    <tr class="item">
+      <!-- <td>You</td> -->
+      <td><input class="sprintInput" id="weight" type="number" min="1" value="188" step="0.1" oninput="calcMomentum();"></td>
+      <td><input class="sprintInput" id="time" type="number" min="1" value="9.63" step="0.01" oninput="calcMomentum();"></td>
+      <td id="result"></td>
+    </tr>
+  </table>
+</p>
+
+
+<script>calcMomentum();</script>
 </body>
 </html>

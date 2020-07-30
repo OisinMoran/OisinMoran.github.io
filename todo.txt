@@ -1,14 +1,17 @@
 Website to do
 -------------
 
-[x] Try out/switch to KaTeX
-	[-] If that is not fast enough switch logo to image
-[x] Compress photos
-[x] Fix poetry formatting (unusable on mobile)
-[] Clean up
+[] Clean up?
 [] Put logo on left
 [] Add some bio (about section)
-
+[] Improve link styling (can't see they're clickable atm)
+[] Click back to main option
+[] nice blockquotes
+[] reorganize so links are at top level (potentially set up gh actions to reorg on push but keep nice locally?)
+[] work out better publishing flow
+[] better typography
+[] re-add poems
+[] add some new ones
 
 [] Momentum Sprint
 [] Bending Spectra
@@ -18,8 +21,29 @@ Website to do
     [] clean up
 [] RFFF
     [] Add bit about weird notations (!! and sqrt)
-    [] Get ID DFS working (find 9 !!!)
+    [] Get ID DFS working (find 9 plz)
+[] Controlling the weather
+[x] Link to clock (in art page?)
+[] control theoretic view of politics
+[] landau func
+[] overvalued startups
+[] rect text!
+    [] get working properly
+        [] get fix from darragh (some things still noo working)
+        [] fix freezing thing
+        [] improve optimizer ()
+    [] Learnings: fonts* linear on large scale (have just tried on one font), on smaller scale flat (lots of small jumps then some bigger jumps) 
+
+    [] add spacing (standard spacing, inter word)
+    [] italics
+    [] link illustator tool
+    [] figma plugin?
+    [] extend similar idea to typsetting on the web (hyphenating and all that)
+    [] write up
+
 
 
 [] How to vote on a voting system
 [] Add a readme
+
+

@@ -76,3 +76,7 @@ function main() {
 }
 
 main();
+
+
+// Learnings: fonts* linear on large scale (*have just tried on one font), 
+// on smaller scale flat (lots of small jumps then some bigger jumps) 

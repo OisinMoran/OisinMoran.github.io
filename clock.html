@@ -65,6 +65,7 @@ body {
         var t = (h % 12) + m/60 + s/3600;
         var angle;
 
+        // Can definitely make this a bit cleaner/simpler
         if (6 <= t && t <= 9) {
             angle = 60*t - 360;
         } else if (t < 6) {
