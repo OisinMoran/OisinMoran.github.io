@@ -1,49 +1,58 @@
 Website to do
 -------------
 
-[] Clean up?
+General
+=======
+[x] Remove .html from links (see https://www.w3.org/Provider/Style/URI)
+[] Reorganize so links are at top level (nice URLs)
 [] Put logo on left
 [] Add some bio (about section)
 [] Improve link styling (can't see they're clickable atm)
-[] Click back to main option
-[] nice blockquotes
-[] reorganize so links are at top level (potentially set up gh actions to reorg on push but keep nice locally?)
-[] work out better publishing flow
-[] better typography
-[] re-add poems
-[] add some new ones
+[] (Click back to main) option
+[] Nice blockquotes
+[] Work out better publishing flow
+[] Better typography
+[] Re-add poems
+[] Add some new ones
 
+
+Essayish type things
+====================
 [] Momentum Sprint
 [] Bending Spectra
 [] General Interpolation
-[x] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
+[] Controlling the weather
+[] Control theoretic view of politics
+[] Overvalued startups
+[] How to vote on a voting system
+
+
+Programming
+===========
+[] landau func
+[-] Sequence Autocomplete (this is pretty much ready, maybe just needs some cleaning up)
     [] write intro
     [] clean up
-[] RFFF
+[-] RFFF
     [] Add bit about weird notations (!! and sqrt)
     [] Get ID DFS working (find 9 plz)
-[] Controlling the weather
-[x] Link to clock (in art page?)
-[] control theoretic view of politics
-[] landau func
-[] overvalued startups
 [] rect text!
     [] get working properly
-        [] get fix from darragh (some things still noo working)
+        [] get fix from darragh (some things still not working)
         [] fix freezing thing
-        [] improve optimizer ()
-    [] Learnings: fonts* linear on large scale (have just tried on one font), on smaller scale flat (lots of small jumps then some bigger jumps) 
+        [] improve "optimizer"
 
     [] add spacing (standard spacing, inter word)
     [] italics
     [] link illustator tool
     [] figma plugin?
     [] extend similar idea to typsetting on the web (hyphenating and all that)
+        [] try from scratch
+        [] implement Knuths
     [] write up
+[] Pokerbot
 
 
 
-[] How to vote on a voting system
-[] Add a readme
 
 
