@@ -1,0 +1,361 @@
+<!-- 
+First draft of actual text
+Tag all on Twitter: bolt, bailey, poe, jacobs, thor
+(references at the bottom or inline? or at all?)
+N s to ks m / s
+un-inline styles
+nice blockquotes
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="manifest" href="../manifest.json">
+<link rel="mask-icon" href="../safari-pinned-tab.svg" color="#ff8c8c">
+<meta name="theme-color" content="#ff8c8c">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oisín Moran | The Mometum Sprint</title>
+<link rel="stylesheet" type="text/css" href="../main.css" />
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<style>
+table {
+    border: 1px solid #eee;
+    /*border-radius: 10px;*/
+    border-collapse: collapse;
+    width: 100%;
+    /*box-shadow: 0px 5px 20px #aaa;*/
+}
+
+td, th {
+    border: 0px solid #eee;
+    /*border-radius: 10px;*/
+    /*border-collapse: separate;*/
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script type="text/javascript">
+  function calcMomentum () {
+    const weight = document.getElementById("weight").value;
+    const time = document.getElementById("time").value;
+    const output = document.getElementById("result");
+    output.innerHTML = (weight*time).toFixed(2);
+  }
+</script>
+</head>
+<body>
+
+<h1 style="margin-bottom: 0px;">The Momentum Sprint</h1>
+<p><em>or Who is Literally the Most Unstoppable Person?</em></p>
+
+<p>
+A simple question really.
+It popped into my head around the time of the 2012 London Olympics.
+I was still playing rugby and studying physics among other things.
+It was also likely sparked—at least in part—by a bet I had lost several years prior, that I was heavier than Usain bolt... I was probably around thirteen. Lesson learned.
+</p>
+
+<p>
+In rugby you quickly learn that the heavier and faster someone is, the harder they are to tackle.
+In physics you learn this concept is called momentum (usually given the symbol \(p\)), and is simply an object's mass multiplied by its velocity.
+
+$$p=mv$$
+</p>
+
+<p>
+Obviously this does not capture <em>all</em> of what makes someone difficult to tackle.
+It doesn't account for running technique, agility, or whether they are currently coated in grease.
+But it's a pretty good start.
+</p>
+
+<p>
+After watching Usain Bolt dominate the 100&nbsp;m sprint yet again, the first question became: “Sure he's the fastest, but is he the hardest to stop?”.
+</p>
+
+<p>
+In the spirit of keeping things simple we're just going to be comparing athletes' <em>average</em> momentum—as it's easy to work out—but it would also be interesting to look into maximums and some other metrics.
+I will leave those to the dedicated reader.
+Thankfully this sprint distance is pretty relevant because 100&nbsp;m <em>is</em> the length of rugby pitch, which may be why Europeans don't use football fields as a unit of measurement.
+</p>
+
+<p>
+As a brief refresher, we can work out the velocity (\(v\)) of something given a distance travelled and the time it took:
+
+$$v = \frac{distance}{time}$$
+
+So to get someone's average momentum we can substitute this into the first equation to get:
+
+$$p = \frac{\text{mass} \times \text{distance}}{\text{time}}$$
+
+Which is a super simple calculation. Just multiply their weight (in kilograms) by the distance (in metres) then divide by the time it took (in seconds). The unit of the resulting number will be kilogram metres per second (kg&nbsp;m/s) or equivalently Newton seconds (N&nbsp;s).
+</p>
+
+<p>
+So if we rescore the men's 2012 Olympics 100m Sprint:
+</p>
+
+<table id="sprint2012">
+  <tr>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(1)')">Athlete</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(2)')">Weight (kg)</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(3)')">Time (s)</th>
+    <th onclick="w3.sortHTML('#sprint2012','.item', 'td:nth-child(4)')">Avg Momentum (N&nbsp;s)</th>
+  </tr>
+  <tr class="item">
+    <td>Usain Bolt</td>
+    <td>94</td>
+    <td><b>09.63</b></td>
+    <td>975.72</td>
+  </tr>
+  <tr class="item">
+    <td>Yohan Blake</td>
+    <td>76</td>
+    <td>09.75</td>
+    <td>779.76</td>
+  </tr>
+  <tr class="item">
+    <td>Justin Gatlin</td>
+    <td>83</td>
+    <td>09.79</td>
+    <td>847.43</td>
+  </tr>
+  <tr class="item">
+    <td>Tyson Gay</td>
+    <td>77</td>
+    <td>09.80</td>
+    <td>785.40</td>
+  </tr>
+  <tr class="item">
+    <td>Ryan Bailey</td>
+    <td><b>98</b></td>
+    <td>09.88</td>
+    <td><b>991.76</b></td>
+  </tr>
+  <tr class="item">
+    <td>Churandy Martina</td>
+    <td>74</td>
+    <td>09.94</td>
+    <td>744.44</td>
+  </tr>
+  <tr class="item">
+    <td>Richard Thompson</td>
+    <td>80</td>
+    <td>09.98</td>
+    <td>800.80</td>
+  </tr>
+  <tr class="item">
+    <td>Asafa Powell (inj)</td>
+    <td>87</td>
+    <td>12.00</td>
+    <td>725.58</td>
+  </tr>
+</table>
+
+<p style="margin-top: 20px">
+We see that Ryan Bailey comes out on top as the most unstoppable!
+</p>
+
+
+<h2>Can We Do Better?</h2>
+<p>
+That's great and all, and we're very proud of Ryan, but perhaps Olympic sprinters aren't the best at this.
+The 2012 sprint had a big weight range (24&nbsp;kg) and a big weight difference between first and second place (with Usain Bolt carrying 18&nbsp;kg more than Yohan Blake) so it seems that weight isn't that much of a determining factor for speed.
+</p>
+
+<p>
+With these people being <em>literally</em> the fastest humans on the planet, the only way to beat them will be by finding someone heavier.
+</p>
+
+<p>
+As Bailey was so close to 1000&nbsp;N&nbsp;s, that seems like a good milestone to aim for.
+So we're looking for big people who can run fast. Rugby and American football seem like obvious places to start looking.
+</p>
+
+<p>
+There were several promising rugby players, but they were quickly eclipsed by the American footballers I found, likely due to the more specialised nature of American football.
+</p>
+
+<p>
+<h3>Brandon Jacobs</h3>
+<!-- ... ~ 1.2?
+120 kg
+10.82 s
+9.2421 m/s
+-> 1109 -->
+First up is Brandon Jacobs, a former American football running back, who spent the majority of his career with the New York Giants.
+</p>
+
+<table id="brandon-jacobs">
+  <tr>
+    <th>Athlete</th>
+    <th>Weight (kg)</th>
+    <th>Time (s)</th>
+    <th>Avg Momentum (N s)</th>
+  </tr>
+  
+  <tr class="item">
+    <td>Brandon Jacobs</td>
+    <td>120</td>
+    <td>10.82</td>
+    <td>1109</td>
+  </tr>
+</table>
+
+<p style="margin-top: 20px;">
+He blows our benchmark out of the water with a very impressive 1109 N&nbsp;s, and was the top spot in my mind for a good few years.
+That is until my good friend John suggested:
+</p>
+<!-- Revisit
+40yds in 4.56 s
+120*(36.576/4.56) = 963
+
+Explain calculations
+
+spectator sport ... -->
+
+<h3>Dontari Poe</h3><!--  ~ 1152.38
+157 kg
+40yd - 4.98 s
+157*(36.576/4.98) = 1153
+[no 100m info]
+ -->
+<p style="margin-bottom: 0px;"><em>“Can you believe he ran the 40-yard dash in 4.98 seconds? Poe looks like a refrigerator. He’s not supposed to move like that.”</em></p>
+<p style="text-align: right;">
+~ Warren Sapp, former defensive tackle and hall of famer
+</p>
+
+<p>
+Adding a whole new level to the age-old question “Is your refrigerator running?” Poe is another freakish American football player, this time a nose tackle for the Dallas Cowboys.
+</p>
+
+<p>
+There does not seem to be any 100&nbsp;m data for Poe, so I just used his 40 yard dash time.
+This doesn't seem like it will affect our results too much, as Brandon Jacobs' 40 yard dash momentum was worse than his 100&nbsp;m, so if anything we could be underestimating Poe.
+</p>
+
+<table id="poe">
+  <tr>
+    <th>Athlete</th>
+    <th>Weight (kg)</th>
+    <th>Time (s)</th>
+    <th>Avg Momentum (N s)</th>
+  </tr>
+  
+  <tr class="item">
+    <td>Dontari Poe</td>
+    <td>157</td>
+    <td>4.98</td>
+    <td>1153</td>
+  </tr>
+</table>
+
+<p style="margin-top: 20px;">
+We have a new champion! It's no surprise this scarily large and scarily fast man is the winner here, but is there anyone out there who could beat him?
+</p>
+
+
+<h3 style="margin-top: 40px;">Hafþór Júlíus Björnsson, a.k.a. The Mountain</h3>
+<p>
+If you know this Icelandic man of many talents it is likely for his role in Game of Thrones, his strongman career, or both.
+At over two metres in height (6 ft 9 in), and weighing in at 205 kg at his peak, this man is truly larger than life and has the commensurate accolades—including breaking the world deadlift record this year when he lifted 501 kg.
+</p>
+
+<p>
+A lesser known fact is that he used to play basketball professionally, so he is probably still able to run in some capacity.
+Perhaps unsurprisingly, the closest thing I could find to any sprint data for Hafþór was him running with a car on his back, but we're interested in the groundspeed velocity of an <em>unladen</em> fellow.
+</p>
+
+<p>
+Using his most recent weight of 188 kg, we can rearrange the equation from earlier to find out how fast he would have to run a 100 m sprint to knock Dontari Poe off the top spot as the world's most unstoppable person.
+
+$$\frac{100 \text{ m} \times 188 \text{ kg}}{1153 \text{ N s}}= 16.3 \text{ s}$$
+
+But if he were to bulk up a bit more and get back to 205 kg, he would only need to run it in under 17.8 seconds.
+</p>
+
+<p>
+  <table id="thor">
+    <tr>
+      <th>Athlete</th>
+      <th>Weight (kg)</th>
+      <th>Time (s)</th>
+      <th>Avg Momentum (N s)</th>
+    </tr>
+    
+    <tr class="item">
+      <td>Hafþór Júlíus Björnsson</td>
+      <td>188</td>
+      <td class="lighter">&lt; 16.3?</td>
+      <td class="lighter">&gt; 1153?</td>
+    </tr>
+  </table>
+</p>
+
+<p>This seems quite doable—even if he does weigh a fifth of a tonne.</p>
+
+<p style="margin-top: 40px;">
+If you have any more suggestions for potential contenders—or just want to say hi, please comment under <a href="https://twitter.com/TheOisinMoran">the post for this on Twitter</a>!
+</p>
+
+
+<h2 style="margin-top: 40px;">Epilogue: The Future of the Sport</h2>
+<p>
+While not a great spectator sport at the moment, and with little hope of it becoming one, it can still be fun to imagine how this would play out were it to become an event.
+</p>
+
+<p>
+Of course contestants would be weighed right before the event for maximum accuracy.
+Everyone might start running on a full stomach, wearing <em>even more</em> chains, or most likely weight vests.
+Coaches would measure sprint times versus added weight and optimise to get the best momentum (I would be quite interested to see these graphs even today. Some militaries have likely already researched something along these lines).
+The distribution of this added weight would also be quite important, and so to avoid awkwardness and bulkiness people would probably opt for platinum (iridium and osmium are slightly denser, but iridium is more expensive and osmium is more dangerous, rarer and harder to work with).
+The sport might bifurcate into max and average camps, and perhaps different distances too like most other events (though presumably fewer in this instance).
+</p>
+
+<p>
+In the end though, heavier folk will probably fare the best.
+It's much better if the extra weight is actually doing something, so muscle wins over dead weight.
+And there is no way Churandy Martina is running anywhere near a comparable time with an extra 20 kg—no matter how it's distributed.
+</p>
+
+<h3>Calculator</h3>
+<p>
+Calculate your own momentum and see how unstoppable you are!
+</p>
+<p>
+  <table id="you">
+    <tr>
+      <!-- <th>Athlete</th> -->
+      <th>Weight (kg)</th>
+      <th>Time (s)</th>
+      <th>Avg Momentum (N s)</th>
+    </tr>
+    
+    <tr class="item">
+      <!-- <td>You</td> -->
+      <td><input class="sprintInput" id="weight" type="number" min="1" value="188" step="0.1" oninput="calcMomentum();"></td>
+      <td><input class="sprintInput" id="time" type="number" min="1" value="9.63" step="0.01" oninput="calcMomentum();"></td>
+      <td id="result"></td>
+    </tr>
+  </table>
+</p>
+
+<p style="float: right;"><i>Finally published 2020-10-26</i></p>
+
+<script>calcMomentum();</script>
+</body>
+</html>

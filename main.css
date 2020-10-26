@@ -12,6 +12,7 @@ body {
 	padding: 0 10px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    /*-webkit-font-smoothing: antialiased;*/
 }
 
 h1, h2, h3 { 
@@ -63,6 +64,18 @@ a:active {
     text-decoration: none;
 }
 
+code pre {
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
 
 .button {
     background-color: #4a9eda;

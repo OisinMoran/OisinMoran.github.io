@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c">
+<meta name="theme-color" content="#ff8c8c">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oisín Moran | How I Made a Tweet that Quote-Tweets Itself</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body>
+
+<h1>How I Made a Tweet that Quote-Tweets Itself</h1>
+
+Intro:
+
+Original idea
+
+Background research
+https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html
+
+Why the name
+
+Expecations
+
+
+Get API key
+
+<code><pre>
+twurl authorize --consumer-key CONSUMER_KEY \
+                --consumer-secret CONSUMER_SECRET
+</pre></code>
+
+<code><pre>
+twurl -d 'status=Test tweet using the POST statuses/update endpoint' /1.1/statuses/update.json
+</pre></code>
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Test tweet using the POST statuses/update endpoint</p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1308911113229209601?ref_src=twsrc%5Etfw">September 23, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<code><pre>
+{"created_at":"Wed Sep 23 23:28:22 +0000 2020","id":1308911113229209601,"id_str":"1308911113229209601","text":"Test tweet using the POST statuses\/update endpoint","truncated":false,"entities":{"hashtags":[],"symbols":[],"user_mentions":[],"urls":[]},"source":"","in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":1308873400757227521,"id_str":"1308873400757227521","name":"quinetweet","screen_name":"quinetweet","location":"","description":"","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":0,"friends_count":0,"listed_count":0,"created_at":"Wed Sep 23 20:59:00 +0000 2020","favourites_count":0,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":1,"lang":null,"contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"F5F8FA","profile_background_image_url":null,"profile_background_image_url_https":null,"profile_background_tile":false,"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/1308874183791829001\/I1xq3QF1_normal.jpg","profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/1308874183791829001\/I1xq3QF1_normal.jpg","profile_link_color":"1DA1F2","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"has_extended_profile":true,"default_profile":true,"default_profile_image":false,"following":false,"follow_request_sent":false,"notifications":false,"translator_type":"none"},"geo":null,"coordinates":null,"place":null,"contributors":null,"is_quote_status":false,"retweet_count":0,"favorite_count":0,"favorited":false,"retweeted":false,"lang":"en"}%
+</pre></code>
+
+Okay so now let's quote tweet this
+
+<code><pre>
+twurl -d 'status=https://twitter.com/quinetweet/status/1308911113229209601' /1.1/statuses/update.json
+</pre></code>
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/FXps7y4yMw">https://t.co/FXps7y4yMw</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1308912279853903872?ref_src=twsrc%5Etfw">September 23, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Okay now let's take a look at these IDs
+
+<code><pre>
+for i in {1..2}; do twurl -d 'status=Quick succession test' /1.1/statuses/update.json; done
+</pre></code>
+
+Ah we're met with a warning about the second one being a duplicate...well that's not helpful
+
+Simple let's add a variable
+
+<code><pre>
+for i in {1..2}; do twurl -d 'status=Quick succession test $i' /1.1/statuses/update.json; done
+</pre></code>
+
+Ah this is also getting the duplicate warning, what's going on?
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Quick succession test <a href="https://twitter.com/search?q=%24i&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$i</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309237764035051520?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+How embarrrassing, we've accidentally linked to Intelsat's stock ticker. We should have used double quotes:
+
+<code><pre>
+for i in {1..2}; do twurl -d "status=Quick succession test $i" /1.1/statuses/update.json; done
+</pre></code>
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Quick succession test 1</p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309237975868469248?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Quick succession test 2</p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309237977982345216?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Finally! Now we can say we're programatically tweeting without completely lying
+
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/WKJ360tAsR">https://t.co/WKJ360tAsR</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309821307643727872?ref_src=twsrc%5Etfw">September 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Now this video is excellent and I think I may have just found my new favourite content discovery mechanism
+What is that relevant xkcd??
+
+
+All hail
+<blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/MAbIwtoonW">https://t.co/MAbIwtoonW</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309951041321013248?ref_src=twsrc%5Etfw">September 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Code is...
+
+<!-- Export tweets -->
+<!-- Complain to twitter about quote tweet not displaying properly despite existing -->
+<!-- TLDR? -->
+<!-- USERNAME DOESN'T MATTER -->
+<!-- trivial with edit button -->
+</body>
+</html>
