@@ -54,7 +54,7 @@ tr:nth-child(even) {
     const weight = document.getElementById("weight").value;
     const time = document.getElementById("time").value;
     const output = document.getElementById("result");
-    output.innerHTML = (weight*time).toFixed(2);
+    output.innerHTML = ((weight*100)/time).toFixed(2);
   }
 </script>
 </head>
