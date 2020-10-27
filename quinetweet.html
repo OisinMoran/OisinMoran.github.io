@@ -17,32 +17,48 @@
 <p><em>Or the real reason Twitter doesn't want you to have an edit button.</em></p>
 
 <p>
-I'll try to keep this as chronological as I can, and will leave the pulp in.
+I'll try to leave the pulp in here and keep this as chronological as I can.
 </p>
 
 <p>
 The original idea to make a tweet that quote tweets itself is from the 28th of May 2020 (as recorded in Evernote), but I think had likely occured to me earlier when considering what ramifications Twitter having an edit button would have—most notably being able to mislead, being able to vandalize someone's timeline post-retweet, and of course being able to edit your tweet to refer to itself.
 </p>
 
-Fundamentally the challenge is just correctly guessing what ID a given tweet is going to get.
-
 <p>
+<!-- Fundamentally the challenge is just correctly guessing what ID a given tweet is going to get. -->
 This initial note already had some background research done into determining how tweet IDs were generated, with a link to <a href="https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html">this article containing a useful breakdown of Twitter's Snowflake IDs</a>, so thanks to the author of that, Nauman Siddique.
 </p>
 
 <h3>Anatomy of a Tweet ID</h3>
+<p>
 Twitter used to use sequential IDs but no longer do.
 Public-facing sequential IDs have the drawback of making usage of your platform easy to estimate.
-They are also hard to generate 
-Composed of three parts: a timestamp, a machine ID, and an sequence number.
-[table?]
-[41, 10, 12]
-This means if your timestamp is off by one millisecond the ID could be off by billions.
-
-[later: one we knew the least about was the smallest]
+They are also hard to generate in a distributed fashion.
+</p>
 
 <p>
-I knew I'd likely be spamming as it was incredibly unlikely I'd get it right on the first go, so created a new account.
+From the link above we find that the new Twitter IDs (used for more than just tweets) are composed of three parts: a timestamp, a machine ID, and a sequence number, arranged like so:
+</p>
+
+<code><pre>
+TIMESTAMP MACHINE ID SEQUENCE NUM
+41 BITS   10 BITS    12 BITS
+000...000 0000000000 000000000000 
+</pre></code>
+
+<p>
+These are then just stuck together and interpreted as a decimal number and look something like 1320553050730340354.
+</p>
+
+<p>
+Brute-forcing the whole thing is not going to work here as there are so many possibilities, but thankfully the largest section is the timestamp, which should be easy enough to guess right.
+This will likely just involve finding the delay between my program guessing an ID and Twitter assigning an ID to the generate tweet.
+There will always be fluctuations here as we're dealing in milliseconds and both my computer and all of Twitter's system will be under varying loads, but it should be somewhat consistent.
+Hopefully then we can just figure the other two out as they are much smaller—having only 1024 and 4096 possibilities, compared to the timestamp's over 2 trillion (that's a lot of milliseconds).
+</p>
+
+<p>
+I knew I'd likely have to do <em>some</em> spamming as I was not going to get it right on the first go, so created a new account to spare my few but wonderful followers.
 </p>
 
 <h3>Why the name?</h3>
@@ -53,25 +69,32 @@ A quine is a computer program which takes no input and produces a copy of its ow
 </em></p>
 <p>
 So it's only natural that a quinetweet would print its own URL, and thus hopefully quote tweet or retweet itself.
+And natually I set the profile photo to one of Quine himself.
 </p>
 
-Expectations
+<!-- Expectations -->
 
 
-Get API key
+<h3>Get API key</h3>
+<p>
+I signed the new profile up for a <a href="https://developer.twitter.com/">developer account</a> to start tweeting programatically using Twitter's API. And began with their examples using <a href="https://github.com/twitter/twurl">twurl</a>.
+</p>
 
+<p>First step is authorization with my shiny new API keys:</p>
 <code><pre>
 twurl authorize --consumer-key CONSUMER_KEY \
                 --consumer-secret CONSUMER_SECRET
 </pre></code>
 
+<p>And now we can get straight into tweeting:</p>
 <code><pre>
 twurl -d 'status=Test tweet using the POST statuses/update endpoint' /1.1/statuses/update.json
 </pre></code>
-
+<p>Resulting in our beautiful first tweet:</p>
 <blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Test tweet using the POST statuses/update endpoint</p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1308911113229209601?ref_src=twsrc%5Etfw">September 23, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<code><pre>
+<p>In the returned response there is <em>a lot</em> of information, but we only really care about the ID, in this case 1308911113229209601 which thankfully matches up with what shows up on Twitter's website—they're not lying!</p>
+<!-- <code><pre>
 {
   "created_at":"Wed Sep 23 23:28:22 +0000 2020",
   "id":1308911113229209601,
@@ -159,7 +182,7 @@ twurl -d 'status=Test tweet using the POST statuses/update endpoint' /1.1/status
   "lang":"en"
 }
 </pre></code>
-
+ -->
 <!-- {"created_at":"Wed Sep 23 23:28:22 +0000 2020","id":1308911113229209601,"id_str":"1308911113229209601","text":"Test tweet using the POST statuses\/update endpoint","truncated":false,"entities":{"hashtags":[],"symbols":[],"user_mentions":[],"urls":[]},"source":"","in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":1308873400757227521,"id_str":"1308873400757227521","name":"quinetweet","screen_name":"quinetweet","location":"","description":"","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":0,"friends_count":0,"listed_count":0,"created_at":"Wed Sep 23 20:59:00 +0000 2020","favourites_count":0,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":1,"lang":null,"contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"F5F8FA","profile_background_image_url":null,"profile_background_image_url_https":null,"profile_background_tile":false,"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/1308874183791829001\/I1xq3QF1_normal.jpg","profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/1308874183791829001\/I1xq3QF1_normal.jpg","profile_link_color":"1DA1F2","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"has_extended_profile":true,"default_profile":true,"default_profile_image":false,"following":false,"follow_request_sent":false,"notifications":false,"translator_type":"none"},"geo":null,"coordinates":null,"place":null,"contributors":null,"is_quote_status":false,"retweet_count":0,"favorite_count":0,"favorited":false,"retweeted":false,"lang":"en"}
  -->
 Okay so now let's quote tweet this
@@ -205,7 +228,7 @@ Tweet non-existant ID...
 
 <blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/WKJ360tAsR">https://t.co/WKJ360tAsR</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309821307643727872?ref_src=twsrc%5Etfw">September 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Now this video is excellent and I think I may have just found my new favourite content discovery mechanism—generating random tweet IDs and checking if they exist.
+I think I may have just found my new favourite content discovery mechanism—generating random tweet IDs and checking if they exist.
 The song is <a href="https://youtu.be/XwPB9FrhqjI">Thundercat's Funny Thing</a>.
 
 <h2>The Promised Land</h2>
