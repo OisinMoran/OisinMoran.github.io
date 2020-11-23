@@ -65,6 +65,7 @@ a:active {
 }
 
 code pre {
+    font-size: 16px;
     background-color: #333;
     color: #fff;
     border-radius: 8px;
