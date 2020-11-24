@@ -25,7 +25,9 @@ The original idea to make a tweet that quote tweets itself is from the 28<sup>th
 </p>
 
 <p>
-<!-- Fundamentally the challenge is just correctly guessing what ID a given tweet is going to get. -->
+Fundamentally the challenge is just correctly guessing what ID a given tweet is going to get, then appending that onto the URL for our profile and tweeting it.</p>
+
+<p>
 This initial note already had some background research done into determining how tweet IDs were generated, with a link to <a href="https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html">this article containing a useful breakdown of Twitter's Snowflake IDs</a>, so thanks to the author of that, Nauman Siddique.
 </p>
 
@@ -71,8 +73,6 @@ A quine is a computer program which takes no input and produces a copy of its ow
 So it's only natural that a quinetweet would print its own URL, and thus hopefully quote tweet or retweet itself.
 And natually I set the profile photo to one of Quine himself, and the banner to a relevant Escher lithograph.
 </p>
-
-<!-- Expectations -->
 
 
 <h3>Tweeting with the API</h3>
@@ -190,7 +190,7 @@ We see the second was posted 504&nbsp;ms after the first (from Twitter's point o
 
 <blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/OOUKS9dwCp">https://t.co/OOUKS9dwCp</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309684115017527297?ref_src=twsrc%5Etfw">September 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p>That is most certainly not my account. So what did we actually <em>try</em> to tweet here and what did it link to? Conveniently both of our accounts have 10 character names so comparing these is a breeze.</p>
+<p>That is most certainly not my account. So what did we actually <em>try</em> to tweet here and what did it link to? Conveniently both of our accounts have ten character names so the URLs line up nicely in a monospaced font which makes visually comparing them even easier than normal.</p>
 
 <code><pre>
 https://twitter.com/quinetweet/status/1309684114073808896
