@@ -31,15 +31,15 @@ Fundamentally the challenge is just correctly guessing what ID a given tweet is 
 This initial note already had some background research done into determining how tweet IDs were generated, with a link to <a href="https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html">this article containing a useful breakdown of Twitter's Snowflake IDs</a>, so thanks to the author of that, Nauman Siddique.
 </p>
 
-<h3>Anatomy of a Tweet ID</h3>
+<h3>Anatomy of a tweet ID</h3>
 <p>
 Twitter used to use sequential IDs but no longer do.
 Public-facing sequential IDs have the drawback of making usage of your platform easy to estimate.
-They are also hard to generate in a distributed fashion.
+They are also hard to generate in a distributed fashion while preserving order.
 </p>
 
 <p>
-From the link above we find that the new Twitter IDs (used for more than just tweets) are composed of three parts: a timestamp, a machine ID, and a sequence number, arranged like so:
+From the link above we find that the new Twitter IDs (used for more than just tweets—for example, lists) are composed of three parts: a timestamp, a machine ID, and a sequence number, arranged like so:
 </p>
 
 <code><pre>
@@ -53,9 +53,10 @@ These are then just stuck together and interpreted as a decimal number and look 
 </p>
 
 <p>
-Brute-forcing the whole thing is not going to work here as there are so many possibilities, but thankfully the largest section is the timestamp, which should be easy enough to guess right.
+Brute-forcing the whole thing is not going to work here as there are so many possibilities, but thankfully the largest section is the timestamp, which should be easy enough to guess correctly.
 This will likely just involve finding the delay between my program guessing an ID and Twitter assigning an ID to the generated tweet.
-There will always be fluctuations here as we're dealing in milliseconds and both my computer and all of Twitter's system will be under varying loads, but it should be somewhat consistent, at least within a given timeframe.
+There will always be fluctuations here as we're dealing in milliseconds and both my computer and all of Twitter's system will be under varying loads.
+However, it should be somewhat consistent, at least within a given timeframe.
 Hopefully then we can just figure the other two out as they are much smaller—having only 1024 and 4096 possibilities, compared to the timestamp's over 2 trillion (that's a lot of milliseconds).
 </p>
 
@@ -104,7 +105,7 @@ twurl -d 'status=https://twitter.com/quinetweet/status/1308911113229209601' /1.1
 <p>Beautiful! I can almost taste the recursion already.</p>
 <blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/FXps7y4yMw">https://t.co/FXps7y4yMw</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1308912279853903872?ref_src=twsrc%5Etfw">September 23, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p>Now to investigate the behaviour of the various components of the ID, let's do two tweets in quick succesion, using a simple Bash loop:</p>
+<p>Now to investigate the behaviour of the various components of the ID, let's do two tweets in quick succession, using a simple Bash loop:</p>
 
 <code><pre>
 for i in {1..2}; do twurl -d 'status=Quick succession test' /1.1/statuses/update.json; done
@@ -119,7 +120,7 @@ No worries, simply adding a variable should fix this:
 </p>
 
 <code><pre>
-for i in {1..2}; do twurl -d 'status=Quick succession test <span style="color:red">$i</span>' /1.1/statuses/update.json; done
+for i in {1..2}; do twurl -d 'status=Quick succession test <span style="color: #ff8c8c">$i</span>' /1.1/statuses/update.json; done
 </pre></code>
 
 <p>
@@ -135,7 +136,7 @@ We should have used double quotes:
 </p>
 
 <code><pre>
-for i in {1..2}; do twurl -d <span style="color:red">"</span>status=Quick succession test $i<span style="color:red">"</span> /1.1/statuses/update.json; done
+for i in {1..2}; do twurl -d <span style="color: #ff8c8c">"</span>status=Quick succession test $i<span style="color: #ff8c8c">"</span> /1.1/statuses/update.json; done
 </pre></code>
 
 <blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">Quick succession test 1</p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309237975868469248?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -155,13 +156,13 @@ Okay now let's take a look at these last two IDs, splitting them into timestamp,
 <p>
 We see the second was posted 504&nbsp;ms after the first (from Twitter's point of view), the machine IDs differ by 13, and both the sequence numbers are 0. We might be able to get away with assuming the sequence number is most commonly 0. This is great news because it was the larger of the two non-timestamp components so greatly reduces the number of checks we'll have to make. The range for our brute forcing looks like it might be small enough after all!</p>
 
-<p>While Bash was great to start off with, I'm more comfortable with Python, so ...</p>
+<p>While Bash was great to start off with, I'm more comfortable with Python, so...</p>
 
 <h2>Let's start guessing some IDs</h2>
 <p>I'm just going to post the final code here with a brief description of each function. I'm sure there are numerous ways the code could be improved (for one it should probably take the machine ID and other guesswork bits as arguments).</p>
 
 <h3>tweet_id_from_timestamp</h3>
-<p>This does roughly what it says on the tin, and was created by simply reversing the get_tweet_timestamp function that was helpfully shared in <a href="https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html">the article mentioned above</a>, including Twitter's timestamp OFFSET that they had already worked out.</p>
+<p>This does roughly what it says on the tin, and was created by simply reversing the get_tweet_timestamp function that was helpfully shared in <a href="https://ws-dl.blogspot.com/2019/08/2019-08-03-tweetedat-finding-tweet.html">the article mentioned in the intro</a>, including Twitter's timestamp OFFSET that they had already worked out.</p>
 
 <h3>tweet_id_to_parts</h3>
 <p>This gets a tweet id and splits it up into the parts described above: the timestamp, machine ID, and sequence number.
@@ -180,13 +181,13 @@ We see the second was posted 504&nbsp;ms after the first (from Twitter's point o
 <p>A non-gist version of the code is on Github <a href="https://github.com/OisinMoran/quinetweet/blob/main/quinetweet.py">here</a>.</p>
 
 <h2>An idea that didn't work</h2>
-<p>While manually adjusting the offsets and machine ID was getting me kind of close, I thought it could be even better to do that automatically, as if they were time-sensitive the program would be able to update much faster than I could. I tried to update based on the mean error of the previous several responses but this ended up not really working (maybe the median would fare better). It ended up being easier to just eyeball the differences, and pick something reasonable, though I'm not entirely sure if I know explicitly what I was doing.</p>
+<p>While manually adjustment of the offsets and machine ID was getting me kind of close, I thought it could be even better to do that automatically. If these values were time-sensitive, a program would be able to update them much faster than I could. I tried to do this by updating based on the mean error of the previous several responses, but this ended up not really working (maybe the median would fare better). It ended up being easier to just eyeball the differences and pick something reasonable, though I'm not entirely sure if I explicitly know—even now—what I was doing.</p>
 
 
 <h2>Shit gets weird</h2>
-<p>With that all done, I began the sport of just letting it run in short bursts until the rate limit (300 tweets per 3 hour window) forced me to go do something else. Who knew rate limits could be an effective public health measure?</p>
+<p>With that all done, I began the sport of just letting it run in short bursts until the rate limit (300 tweets per 3 hour window) forced me to go do something else. Who knew rate limits could be such an effective public health measure?</p>
 
-<p>A strange and completely unexpected thing began to happen. In these quiet hours of the internet, some of the attempted self-quotes started linking to tweets from other accounts, mostyly in South America and Japan! What was going on? All of the guessed URLs had the quinetweet account name hardcoded into them, so why and how were they linking to other tweets?</p>
+<p>A strange and completely unexpected thing began to happen. In these quiet hours of the internet, some of the attempted self-quotes started linking to tweets from other accounts, mostly in South America and Japan! What was going on? All of the guessed URLs had the quinetweet account name hardcoded into them, so why and how were they linking to other tweets?</p>
 
 <blockquote class="twitter-tweet tw-align-center"><p lang="und" dir="ltr"><a href="https://t.co/OOUKS9dwCp">https://t.co/OOUKS9dwCp</a></p>&mdash; quinetweet (@quinetweet) <a href="https://twitter.com/quinetweet/status/1309684115017527297?ref_src=twsrc%5Etfw">September 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -200,7 +201,7 @@ https://twitter.com/gzhdigital/status/1309684114073808896
 <p>Okay, wild! We guessed someone else's tweet ID! And as the IDs are time-dependent that means they were met with an instantaneous retweet—creepy. Also, it seems like Twitter doesn't actually care about the username and just resolves URLs based on the tweet ID. I'm sure lots of people already knew that but it's new to me.</p>
 
 <p>Let's try another, this time from the Pope: <a href="https://twitter.com/Pontifex/status/1107421599333007362">https://twitter.com/Pontifex/status/1107421599333007362</a></p>
-<p>Okay this is pretty interesting, but back to the task at hand. We're met with plenty more of these close misses along the way, which means it's probably easier to guess your own ID at troughs of usage.</p>
+<p>Okay this is pretty interesting, but back to the task at hand. We're met with plenty more of these close misses along the way, which brings up the idea that it's probably easier to guess your own ID at times of lower traffic, when fewer people are fighting for it.</p>
 
 <h2>The latest content discovery mechanism</h2>
 <p>There was one more of these examples that definitely deserves a shoutout. This one was slightly confusing at first because I actually retweeted someone else's retweet, but it's worth a watch ('tis a bit loud).</p>
@@ -211,14 +212,14 @@ https://twitter.com/gzhdigital/status/1309684114073808896
 
 
 <h2>The Promised Land</h2>
-<p>You may have noticed from the code that for every guess we print the actual ID followed by how off the guess was with respect to the time, the machine ID, then the sequence number. Here's a sample of the terminal output:</p>
+<p>You may have noticed from the code that for every guess we print the actual ID followed by how far off the guess was with respect to the time, the machine ID, then the sequence number. Here's a sample of the terminal output:</p>
 
 <code><pre>
 1309935898243600384
 7 -3 0
 1309935900311334913
 8 11 -1
-<span style="color: red">1309935902421114881
+<span style="color: #ff8c8c">1309935902421114881
 0 0 -1</span>
 1309935904895758336
 7 -1 0
@@ -237,7 +238,7 @@ https://twitter.com/gzhdigital/status/1309684114073808896
 </pre></code>
 
 <p>
-Hot damn, check the example highlighted in red:<br>
+Hot damn, check the highlighted example:<br>
 The timestamp: exactly right, down to the millisecond!<br>
 The machine ID: nailed it!<br>
 The sequence number that we stopped caring about because it generally just seems to be zero: ... NOT ZERO!
@@ -249,11 +250,11 @@ Actual ID:  1309935902421114881
 </pre></code>
 
 <p>
-Fuck, that was close! I'm still not going to change the sequence number though as 0 still seems to be the most common value it takes. This makes sense as it's a counter and obviously has to go through 0 to get to any other value. Similarly 1 should be more common than 2.
+Fuck, that was close! I'm still not going to change the sequence number though as 0 still seems to be the most common value it takes. This makes sense as it's a counter and has to go through 0 to get to any other value. Similarly 1 should be more common than 2.
 </p>
 
 <p>
-We get a few more that are super close. For a frustrating number of them the two more opaque ones are perfect and the time is just off by a few milliseconds. We adjust appropriately (not much in these close calls obviously) and soldier on: 
+We get a few more that are super close. For a frustrating number of them the two more opaque ones are perfect and the time is just off by a few milliseconds. We adjust appropriately (the appropriate level in these close calls being not much) and soldier on: 
 </p>
 
 <code><pre>

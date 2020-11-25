@@ -64,6 +64,34 @@ a:active {
     text-decoration: none;
 }
 
+/*
+for main paragraph links to not mess up headings 
+find better solution long term (cohesive)  
+*/
+/*p a:visited {
+    color: red;
+}*/
+
+p a:link {
+    text-decoration: underline;
+    text-decoration-skip: ink;
+    -webkit-text-decoration-color: #ff8c8c;
+    text-decoration-color: #ff8c8c;
+    color: #ff8c8c;
+}
+
+/* visited link */
+p a:visited {
+    color: #999;
+}
+
+/* mouse over link */
+p a:hover {
+    color: #444; 
+}
+
+
+
 code pre {
     font-size: 16px;
     background-color: #333;
