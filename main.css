@@ -87,7 +87,7 @@ p a:visited {
 
 /* mouse over link */
 p a:hover {
-    color: #444; 
+    text-decoration: none;
 }
 
 
