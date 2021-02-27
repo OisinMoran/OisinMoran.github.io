@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=0, initial-scale=0.6">
+<title>Fragile</title>
+</head>
+<style type="text/css">
+h1 {
+  color: #EE1100;
+  font-family: sans-serif;
+  border: solid;
+  border-radius: 8px;
+  padding: 4px;
+  text-align: center;
+  width: 200px;
+  margin: auto;
+  margin-top: 44vh;
+}
+</style>
+
+<body>
+<h1>FRAGILE</h1>
+
+<script>
+console.log("Careful now, this webpage is very fragile. Don't change anything!")
+
+function setOriginal() {
+  original = new XMLSerializer().serializeToString(document);
+}
+
+window.onload = setOriginal;
+
+var audio = new Audio('shatter.mp3');
+
+function checkIntegrity() {
+  var current = new XMLSerializer().serializeToString(document);
+  if (current != original) {
+    document.body.style.backgroundImage = "url('shatter.png')";
+    audio.play();
+    console.log("Oh deary me!");
+    clearInterval(intervalID);
+  }
+}
+
+intervalID = setInterval(checkIntegrity, 100);
+</script>
+</body>
+
+</html>
+
+
