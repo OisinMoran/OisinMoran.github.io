@@ -41,6 +41,7 @@ Programming
         [] get fix from darragh (some things still not working)
         [] fix freezing thing
         [] improve "optimizer"
+        [x] experiment: https://docs.google.com/spreadsheets/d/1zWdB9dtRjxa6hKKn6mcAYY7OYhbUIguKw91jJhgZziE/edit#gid=0 
 
     [] add spacing (standard spacing, inter word)
     [] italics
