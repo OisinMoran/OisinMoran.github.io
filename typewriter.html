@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        * { margin:0; padding:0; }
+        html, body { width:100%; height:100%; cursor:text;}
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" style="display: block;">
+    Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+
+
+document.addEventListener('keypress', function(event) {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.font = "30px Courier";
+    ctx.fillText(String.fromCharCode(event.keyCode), x, y + 7);
+
+    console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
+});
+
+var c = document.getElementById("myCanvas");
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+var x = 100;
+var y = 100;
+
+onmousemove = function(e) {
+    x = e.clientX;
+    y = e.clientY;
+}
+
+</script>
+
+</body>
+</html>
+
