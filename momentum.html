@@ -41,6 +41,10 @@ tr:nth-child(even) {
     background-color: #eee;
 }
 
+h4 {
+  margin-bottom: 0px;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -50,11 +54,18 @@ tr:nth-child(even) {
     onload="renderMathInElement(document.body);"></script>
 
 <script type="text/javascript">
-  function calcMomentum () {
-    const weight = document.getElementById("weight").value;
-    const time = document.getElementById("time").value;
-    const output = document.getElementById("result");
+  function calcMomentumMetric () {
+    const weight = document.getElementById("weight_metric").value;
+    const time = document.getElementById("time_metric").value;
+    const output = document.getElementById("result_metric");
     output.innerHTML = ((weight*100)/time).toFixed(2);
+  }
+
+  function calcMomentumImperial () {
+    const weight = document.getElementById("weight_imperial").value;
+    const time = document.getElementById("time_imperial").value;
+    const output = document.getElementById("result_imperial");
+    output.innerHTML = ((weight*40*0.453592*0.9144)/time).toFixed(2);
   }
 </script>
 </head>
@@ -268,6 +279,38 @@ This doesn't seem like it will affect our results too much, as Brandon Jacobs' 4
 We have a new champion! It's no surprise this scarily large and scarily fast man is the winner here, but is there anyone out there who could beat him?
 </p>
 
+<h3>2022 NEW CONTENDER UPDATE: Jordan Davis</h3>
+<p>
+There are few feelings better than someone reviving an old idea of yours, one of them is when <a href="https://twitter.com/AndrewDaBuilder/status/1501261501423923200">they do so as a direct reply to the original tweet—as requested below</a>. I was actually first informed of this momentous man's achievements by <em>my</em> most momentous friend, Jack.
+</p>
+
+<p>
+Jordan Davis—Another larger than life American footballer, clocking in at 341 lbs—ran an insanely fast 40 yard dash in the most recent NFL Combine.
+So fast that it made the news, but unfortunately reporters are <em>still</em> not comparing athletes by their momentum.
+We have work to do yet.
+Thankfully I'm still here, and though Davis is faster than Poe he's also a tad lighter, so let's see how he stacks up:
+</p>
+
+<table id="davis">
+  <tr>
+    <th>Athlete</th>
+    <th>Weight (kg)</th>
+    <th>Time (s)</th>
+    <th>Avg Momentum (N s)</th>
+  </tr>
+  
+  <tr class="item">
+    <td>Jordan Davis</td>
+    <td>155</td>
+    <td>4.78</td>
+    <td>1184</td>
+  </tr>
+</table>
+
+<p style="margin-top: 20px;">
+And Dontari Poe has been knocked off the top spot! Davis is now the most unstoppable man on the planet, and to celebrate I've added <a href="#40yd">a new more US-friendly calculator at the bottom of this page</a>.
+</p>
+
 
 <h3 style="margin-top: 40px;">Hafþór Júlíus Björnsson, a.k.a. The Mountain</h3>
 <p>
@@ -281,11 +324,11 @@ Perhaps unsurprisingly, the closest thing I could find to any sprint data for Ha
 </p>
 
 <p>
-Using his most recent weight of 188 kg, we can rearrange the equation from earlier to find out how fast he would have to run a 100 m sprint to knock Dontari Poe off the top spot as the world's most unstoppable person.
+Using his most recent weight of 188 kg, we can rearrange the equation from earlier to find out how fast he would have to run a 100 m sprint to knock our latest champion, Jordan Davis, off the top spot as the world's most unstoppable person.
 
-$$\frac{100 \text{ m} \times 188 \text{ kg}}{1153 \text{ N s}}= 16.3 \text{ s}$$
+$$\frac{100 \text{ m} \times 188 \text{ kg}}{1184 \text{ N s}}= 15.87 \text{ s}$$
 
-But if he were to bulk up a bit more and get back to 205 kg, he would only need to run it in under 17.8 seconds.
+But if he were to bulk up a bit more and get back to 205 kg, he would only need to run it in under 17.3 seconds.
 </p>
 
 <p>
@@ -300,8 +343,8 @@ But if he were to bulk up a bit more and get back to 205 kg, he would only need 
     <tr class="item">
       <td>Hafþór Júlíus Björnsson</td>
       <td>188</td>
-      <td class="lighter">&lt;&nbsp;16.3?</td>
-      <td class="lighter">&gt;&nbsp;1153?</td>
+      <td class="lighter">&lt;&nbsp;16.87?</td>
+      <td class="lighter">&gt;&nbsp;1184?</td>
     </tr>
   </table>
 </p>
@@ -336,26 +379,48 @@ And there is no way Churandy Martina is running anywhere near a comparable time 
 <p>
 Calculate your own momentum and see how unstoppable you are!
 </p>
-<p>
-  <table id="you">
+
+<h4>100 m sprint</h4>
+<!-- <p> -->
+  <table id="you_metric">
     <tr>
       <!-- <th>Athlete</th> -->
       <th>Weight (kg)</th>
       <th>Time (s)</th>
-      <th>Avg Momentum (N s)</th>
+      <th style="width: 220px;">Avg Momentum (N s)</th>
     </tr>
     
     <tr class="item">
       <!-- <td>You</td> -->
-      <td><input class="sprintInput" id="weight" type="number" min="1" value="188" step="0.1" oninput="calcMomentum();"></td>
-      <td><input class="sprintInput" id="time" type="number" min="1" value="9.63" step="0.01" oninput="calcMomentum();"></td>
-      <td id="result"></td>
+      <td><input class="sprintInput" id="weight_metric" type="number" min="1" value="188" step="0.1" oninput="calcMomentumMetric();"></td>
+      <td><input class="sprintInput" id="time_metric" type="number" min="1" value="9.63" step="0.01" oninput="calcMomentumMetric();"></td>
+      <td id="result_metric"></td>
     </tr>
   </table>
-</p>
+<!-- </p>   -->
 
-<p style="float: right;"><i>Finally published 2020-10-26</i></p>
+<h4 id="40yd">40 yd dash</h4>
+<!-- <p> -->
+  <table id="you_imperial">
+    <tr>
+      <!-- <th>Athlete</th> -->
+      <th>Weight (lbs)</th>
+      <th>Time (s)</th>
+      <th style="width: 220px;">Avg Momentum (N s)</th>
+    </tr>
+    
+    <tr class="item">
+      <!-- <td>You</td> -->
+      <td><input class="sprintInput" id="weight_imperial" type="number" min="1" value="341" step="0.1" oninput="calcMomentumImperial();"></td>
+      <td><input class="sprintInput" id="time_imperial" type="number" min="1" value="4.78" step="0.01" oninput="calcMomentumImperial();"></td>
+      <td id="result_imperial"></td>
+    </tr>
+  </table>
+<!-- </p> -->
 
-<script>calcMomentum();</script>
+<br>
+<p style="float: right;"><i>Finally published 2020-10-26, updated 2022-03-09</i></p>
+
+<script>calcMomentumMetric();calcMomentumImperial();</script>
 </body>
 </html>
