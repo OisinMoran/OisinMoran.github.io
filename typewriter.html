@@ -17,7 +17,7 @@
 <body>
 
 <canvas id="myCanvas" style="display: block;">
-    Your browser does not support the HTML canvas tag.
+    Your browser does not support the HTML canvas tag :(
 </canvas>
 
 <script>
@@ -29,7 +29,8 @@ document.addEventListener('keypress', function(event) {
     ctx.font = "30px Courier";
     ctx.fillText(String.fromCharCode(event.keyCode), x, y + 7);
 
-    console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
+    localStorage.setItem("main-canvas", c.toDataURL());
+    // console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
 });
 
 var c = document.getElementById("myCanvas");
@@ -43,6 +44,25 @@ onmousemove = function(e) {
     x = e.clientX;
     y = e.clientY;
 }
+
+// Load data
+var dataURL = localStorage.getItem("main-canvas");
+var img = new Image;
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+img.src = dataURL;
+img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+};
+
+
+function clearCanvas() {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // localStorage.removeItem("main-canvas");    
+}
+
 
 </script>
 
