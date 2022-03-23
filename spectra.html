@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c">
+<meta name="theme-color" content="#ff8c8c">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oisín Moran | Bending Spectra</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.0/processing.min.js"></script>
+
+<style type="text/css">
+  html, body {
+  height: 100%;
+}
+
+canvas, .heading {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+#linear-grad {
+  width: calc(90%);
+  height: 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(0,0,255,1) 100%);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  margin-bottom: 20px;
+
+}
+
+.rotate {
+  /*transform: rotate(90deg);*/
+  /*transform-origin: top left;*/
+  writing-mode: vertical-rl;
+text-orientation: mixed;
+
+}
+
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+    height: 16px;
+}
+
+.r {
+    float: left;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: rgba(255,0,0,1);
+} 
+
+.l {
+    float: right;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: rgba(0,0,255,1);
+}  
+
+</style>
+</head>
+
+<body>
+
+<div class="heading">
+  <h1 class="rotate">Bending</h1>
+  <h1>Spectra</h1>
+</div>
+
+<div id="red"></div>
+<div id="blue"></div>
+
+<div class="float-container">
+
+  <div class="l">
+  </div>
+  
+  <div class="r">
+  </div>
+  
+</div>
+
+<p>
+It's CURRENT_YEAR, everything is a spectrum. 
+</p>
+
+
+<p>
+Despite some of the furor, this is actually useful.
+These shades of grey are a step up from black and white thinking.
+And I am a big fan of converting discrete things to continuous, and just generally interpolating between things.
+</p>
+
+<div id="linear-grad"></div>
+
+<p>
+But for a lot of things that are viewed as opposites, the situation isn't that much better when converted to a spectrum.
+A false dichotomy is just as false when the options are diametrically opposed—in competion for their share of the same axis.
+</p>
+
+If you find yourself as both or neither—or realise that either of those is possible—it's probably not a simple line
+where would we put either of those on a line?
+these both occupy the same 
+
+then it's all about finding the distribution of people on the graph
+
+dog people vs cat people
+
+competitive vs nurturing - link to intelligence squared podcast (couldn't find)
+
+introvert vs extrovert
+
+dichotomy 
+
+manifold
+
+
+not just characteristics of people
+
+    
+fluid dynamics vs game theory
+
+</p>
+
+
+<script type="application/processing">
+void setup() {
+  size(256, 256);
+  noSmooth();
+}
+
+void draw() {
+  for(int y = 0; y < height; y++){
+    for(int x = 0; x < width; x++){
+      stroke(x, 0, y);
+      point(x, 256 - y);
+    }
+  }
+}
+</script>
+<canvas></canvas>
+
+
+<p>
+...
+
+</p>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
