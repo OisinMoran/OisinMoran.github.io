@@ -17,11 +17,16 @@
   height: 100%;
 }
 
-canvas, .heading {
+canvas, .spectra-heading{
   margin-left: auto;
   margin-right: auto;
   display: flex;
 }
+/*
+.spectra-heading {
+  width: 100px;
+  height: 100px;
+}*/
 
 #linear-grad {
   width: calc(90%);
@@ -65,18 +70,35 @@ text-orientation: mixed;
     background: rgba(0,0,255,1);
 }  
 
+.box {
+  height: 256px;
+  width: 256px;
+  background: linear-gradient(to right, rgb(0, 0, 255), rgb(255, 0, 255));
+  margin-left: auto;
+  margin-right: auto;
+}
+.box::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 0, 0));
+  -webkit-mask: linear-gradient(to bottom,#0000, #000);
+          mask: linear-gradient(to bottom,#0000, #000);
+}
 </style>
 </head>
 
 <body>
+  
 
-<div class="heading">
-  <h1 class="rotate">Bending</h1>
-  <h1>Spectra</h1>
+
+<div class="spectra-heading">
+  <!-- <h1 class="rotate">Bending</h1> -->
+  <h1>Bending Spectra</h1>
+  <!-- <h1>Spectra</h1> -->
 </div>
 
-<div id="red"></div>
-<div id="blue"></div>
+<br><br><br>
 
 <div class="float-container">
 
@@ -85,8 +107,10 @@ text-orientation: mixed;
   
   <div class="r">
   </div>
-  
 </div>
+
+
+<br><br><br><br>
 
 <p>
 It's CURRENT_YEAR, everything is a spectrum. 
@@ -99,7 +123,9 @@ These shades of grey are a step up from black and white thinking.
 And I am a big fan of converting discrete things to continuous, and just generally interpolating between things.
 </p>
 
+<br><br><br><br>
 <div id="linear-grad"></div>
+<br><br><br><br>
 
 <p>
 But for a lot of things that are viewed as opposites, the situation isn't that much better when converted to a spectrum.
@@ -130,7 +156,9 @@ fluid dynamics vs game theory
 
 </p>
 
+<div class="box"></div>
 
+<br><br><br><br>
 <script type="application/processing">
 void setup() {
   size(256, 256);
@@ -147,7 +175,7 @@ void draw() {
 }
 </script>
 <canvas></canvas>
-
+<br><br><br><br>
 
 <p>
 ...
