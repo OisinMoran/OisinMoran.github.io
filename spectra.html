@@ -10,14 +10,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oisín Moran | Bending Spectra</title>
 <link rel="stylesheet" type="text/css" href="main.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.0/processing.min.js"></script>
 
 <style type="text/css">
-  html, body {
-  height: 100%;
-}
 
-canvas, .spectra-heading{
+.spectra-heading {
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -85,12 +81,17 @@ text-orientation: mixed;
   -webkit-mask: linear-gradient(to bottom,#0000, #000);
           mask: linear-gradient(to bottom,#0000, #000);
 }
+
+.s {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
 </style>
 </head>
 
 <body>
   
-
 
 <div class="spectra-heading">
   <!-- <h1 class="rotate">Bending</h1> -->
@@ -119,8 +120,8 @@ It's CURRENT_YEAR, everything is a spectrum.
 
 <p>
 Despite some of the furor, this is actually useful.
-These shades of grey are a step up from black and white thinking.
-And I am a big fan of converting discrete things to continuous, and just generally interpolating between things.
+These shades of grey are a step up from black and white thinking, and for some strange reason I'm a big fan of considering things usually seen to be discrete as continuous, then seeing what ensues. <a href="#0">[0]</a>
+Similarly, I also enjoy just generally interpolating between things (another piece on that to come).
 </p>
 
 <br><br><br><br>
@@ -129,58 +130,125 @@ And I am a big fan of converting discrete things to continuous, and just general
 
 <p>
 But for a lot of things that are viewed as opposites, the situation isn't that much better when converted to a spectrum.
-A false dichotomy is just as false when the options are diametrically opposed—in competion for their share of the same axis.
+A false dichotomy is just as false when the options are diametrically opposed—in competition for their share of the same axis.
 </p>
 
-If you find yourself as both or neither—or realise that either of those is possible—it's probably not a simple line
-where would we put either of those on a line?
-these both occupy the same 
-
-then it's all about finding the distribution of people on the graph
-
-dog people vs cat people
-
-competitive vs nurturing - link to intelligence squared podcast (couldn't find)
-
-introvert vs extrovert
-
-dichotomy 
-
-manifold
-
-
-not just characteristics of people
-
-    
-fluid dynamics vs game theory
-
+<p>
+Are you a cat person or a dog person? An introvert or an extrovert? Right-brained or left-brained? Conservative or progressive?
+Most people aren't fully on either side of any of these, and usually "fall somewhere in the middle".
+But how can we differentiate between someone who loves both cats and dogs equally, and someone who doesn't like either?
+<!-- Pro-skub or anti-<a href="https://pbfcomics.com/comics/skub/">skub</a>? -->
+<!-- https://aeon.co/essays/the-logic-of-buddhist-philosophy-goes-beyond-simple-truth -->
 </p>
 
-<div class="box"></div>
+<p>
+On a simple linear spectrum these would both occupy the exact same point, but represent very different things.
+So if you find yourself as both, or neither, then whatever you're dealing with is probably not well-represented by a one-dimensional line.
+Can we do better?
+</p>
+
+<p>
+Of course! We simply <em>bend</em> the spectrum, giving each component its own axis, and giving us a much richer space.
+We now have a separate location for those who love cats <em>and</em> dogs, and those who don't like either.
+And importantly these two groups are as far apart as can be!
+</p>
 
 <br><br><br><br>
-<script type="application/processing">
-void setup() {
-  size(256, 256);
-  noSmooth();
-}
-
-void draw() {
-  for(int y = 0; y < height; y++){
-    for(int x = 0; x < width; x++){
-      stroke(x, 0, y);
-      point(x, 256 - y);
-    }
-  }
-}
-</script>
-<canvas></canvas>
+<div class="box"></div>
 <br><br><br><br>
 
 <p>
-...
-
+Now the interesting part is in what parts of this map are actually populated, or if we want to go spectra all the way down—<em>how</em> populated are various regions?
+Really just finding the distribution of people on the graph
+Of course on any such 2D map not all regions will be possible - single Y chromosome is unfeasible
 </p>
+
+<br><br><br><br>
+<svg width="256" height="256" class="s">
+  <mask id="svgmask1" class="s">
+  </mask>
+  <image href="sqgrd.png" width="256" height="256" mask="url(#svgmask1)" class="s"></image>
+</svg>
+<br><br><br><br>
+
+
+We could up with a manifold, in which case the initial spectrum didn't lose much information.
+
+<br><br><br><br>
+<svg width="256" height="256" class="s">
+  <mask id="svgmask2" class="s">
+  </mask>
+  <image href="sqgrd.png" width="256" height="256" mask="url(#svgmask2)" class="s"></image>
+</svg>
+<br><br><br><br>
+
+Or right back at the dichotomy, though now things feel a bit different.
+
+<br><br><br><br>
+<svg width="256" height="256" class="s">
+  <mask id="svgmask3" class="s">
+    <circle fill="#ffffffff" cx="10" cy="10" r="10px"></circle>
+    <circle fill="#ffffffff" cx="246" cy="246" r="10px"></circle>
+  </mask>
+  <image href="sqgrd.png" width="256" height="256" mask="url(#svgmask3)" class="s"></image>
+</svg>
+<br><br><br><br>
+
+<p>
+  But of course, this doesn't have to just be for characteristics of people.
+  A lot of interesting 
+</p>
+    
+<p>
+  For example, let's take fluid dynamics vs game theory
+  Number of agents, complexity of interaction
+  Plotting things in 2D like this can make holes visible
+</p>
+
+<p>
+  Education vs entertainment
+  Masterclass
+  Edutainment - any portmanteau
+</p>
+
+<p>
+
+more general version of beloved matrix/quadrant
+
+<!-- maybe include images of these? -->
+<a href="https://www.politicalcompass.org/test">political compass</a>
+<a href="https://vitalik.ca/files/misc_files/meta_political_compass_expanded.png">meta alignment compass</a>
+</p>
+
+
+<h2>Footnotes</h2>
+<span id="0">[0] Some interesting discrete to continuous examples: game of life, (important distinctions: control theory, utility function, stock markets)
+  dichotomy->spectrum: convex/concave, text spacing vs font size
+</span>
+
+<script type="text/javascript">
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  var q = document.getElementById("svgmask1");
+  for (i=0;i<400;i++){
+    var r = getRandomInt(1, 7)
+    var x = getRandomInt(r, 256 - r)
+    var y = getRandomInt(r, 256 - r)
+    q.innerHTML += '<circle fill="#ffffff99" cx="' + x + '" cy="' + y + '" r="' + r + '"></circle>';
+  }
+
+  var q = document.getElementById("svgmask2");
+  for (i=0;i<100;i++){
+    var r = getRandomInt(1, 7)
+    var x = getRandomInt(r, 256 - r)
+    var y =  (256-r)*Math.sqrt(1 - Math.pow(x/256, 2))
+    x = Math.min(Math.max(x + getRandomInt(-12,12), r), 255 - r)
+    y = 258 + r - Math.min(Math.max(y + getRandomInt(-12,12), r), 256)
+    q.innerHTML += '<circle fill="#ffffff99" cx="' + x + '" cy="' + y + '" r="' + r + '"></circle>';
+  }
+</script>
 
 </body>
 </html>
