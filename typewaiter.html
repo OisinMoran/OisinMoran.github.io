@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@TheOisinMoran" />
+    <meta property="og:url" content="https://oisinmoran.com/typewaiter" />
+    <meta property="og:title" content="Typewaiter" />
+    <meta property="og:description" content="A typewaiter. Like a typewriter, but just like the world this one keeps moving whether you press anything or not." />
+    <meta property="og:image" content="https://oisinmoran.com/typewaiter.png" />
+
+    <style type="text/css">
+        * { margin:0; padding:0; }
+        html, body { width:100%; height:100%; cursor:text;}
+        #trash {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            cursor: pointer;
+            opacity: 50%;
+        }
+        #trash:hover {
+            opacity: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" style="display: block;">
+    Your browser does not support the HTML canvas tag :(
+</canvas>
+
+<img src="trash-solid.svg" width="20px" id="trash" onclick="clearCanvas()">
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+document.addEventListener('keypress', function(event) {
+    ctx.font = "30px Courier";
+    ctx.fillText(String.fromCharCode(event.keyCode), x, y + 7);
+
+    localStorage.setItem("main-canvas", c.toDataURL());
+    // console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
+});
+
+var c = document.getElementById("myCanvas");
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+
+
+const maxWidth = Math.floor(c.width * 0.75);
+const min_x = Math.floor(c.width * 0.25);
+const min_y = 200;
+var x = min_x;
+var y = min_y;
+var b = 0;
+
+function moveCursor() {
+    b++;
+    x = min_x + (b % (maxWidth - min_x));
+    y = min_y + (35 * Math.floor(b / (maxWidth - min_x)));
+}
+
+// Load data
+var dataURL = localStorage.getItem("main-canvas");
+var img = new Image;
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+img.src = dataURL;
+img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+};
+
+
+function clearCanvas() {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    localStorage.removeItem("main-canvas");    
+}
+
+setInterval(moveCursor, 20);
+
+
+</script>
+
+</body>
+</html>
+
