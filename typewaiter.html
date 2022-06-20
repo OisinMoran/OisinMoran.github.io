@@ -41,7 +41,7 @@ document.addEventListener('keypress', function(event) {
     ctx.font = "30px Courier";
     ctx.fillText(String.fromCharCode(event.keyCode), x, y + 7);
 
-    localStorage.setItem("main-canvas", c.toDataURL());
+    localStorage.setItem("typewaiter-main-canvas", c.toDataURL());
     // console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
 });
 
@@ -65,7 +65,7 @@ function moveCursor() {
 }
 
 // Load data
-var dataURL = localStorage.getItem("main-canvas");
+var dataURL = localStorage.getItem("typewaiter-main-canvas");
 var img = new Image;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
@@ -79,7 +79,7 @@ function clearCanvas() {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
-    localStorage.removeItem("main-canvas");    
+    localStorage.removeItem("typewaiter-main-canvas");    
 }
 
 setInterval(moveCursor, 20);
