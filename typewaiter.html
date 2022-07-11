@@ -12,43 +12,61 @@
     <style type="text/css">
         * { margin:0; padding:0; }
         html, body { width:100%; height:100%; cursor:text;}
-        #trash {
+        #trash, #cursor {
             position: absolute;
-            left: 10px;
             top: 10px;
             cursor: pointer;
             opacity: 50%;
         }
-        #trash:hover {
+        #trash:hover, #cursor:hover {
             opacity: 100%;
+        }
+        #trash {
+            left: 10px;
+        }
+        #cursor {
+            right: 10px;
+        }
+        canvas {
+            background-color: transparent;
         }
     </style>
 </head>
 <body>
 
-<canvas id="myCanvas" style="display: block;">
+<canvas id="myCanvas" style="position: absolute; left: 0; top: 0; z-index: -1;"><!-- style="display: block;"> -->
     Your browser does not support the HTML canvas tag :(
+</canvas>
+<!-- <canvas id="myCanvas2" style="display: block; z-index: 1;"> -->
+<canvas id="myCanvas2" style="position: absolute; left: 0; top: 0; z-index: -2;">
 </canvas>
 
 <img src="trash-solid.svg" width="20px" id="trash" onclick="clearCanvas()">
+<img src="i-cursor-solid.svg" width="12px" id="cursor" onclick="toggleCursorVis()">
 
 <script>
 
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
+var c2 = document.getElementById("myCanvas2");
+var ctx2 = c2.getContext("2d");
+
 document.addEventListener('keypress', function(event) {
     ctx.font = "30px Courier";
+    ctx.fillStyle = 'black';
     ctx.fillText(String.fromCharCode(event.keyCode), x, y + 7);
 
     localStorage.setItem("typewaiter-main-canvas", c.toDataURL());
     // console.log(event.keyCode, String.fromCharCode(event.keyCode), x, y);
 });
 
-var c = document.getElementById("myCanvas");
+
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 
+c2.width = window.innerWidth;
+c2.height = window.innerHeight;
 
 
 const maxWidth = Math.floor(c.width * 0.75);
@@ -58,28 +76,49 @@ var x = min_x;
 var y = min_y;
 var b = 0;
 
+var showCursor = true;
+
 function moveCursor() {
     b++;
     x = min_x + (b % (maxWidth - min_x));
     y = min_y + (35 * Math.floor(b / (maxWidth - min_x)));
+    
+    clearCanvas2()
+    if (showCursor) {
+        ctx2.fillStyle = 'red';
+        ctx2.fillRect(x-3, y-10, 2, 20);
+    }
+    
 }
 
 // Load data
-var dataURL = localStorage.getItem("typewaiter-main-canvas");
-var img = new Image;
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-img.src = dataURL;
-img.onload = function () {
-    ctx.drawImage(img, 0, 0);
-};
-
+function loadData() {
+    var dataURL = localStorage.getItem("typewaiter-main-canvas");
+    var img = new Image;
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    img.src = dataURL;
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+    };
+}
+loadData()
 
 function clearCanvas() {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     localStorage.removeItem("typewaiter-main-canvas");    
+}
+
+function clearCanvas2() {
+    var canvas = document.getElementById("myCanvas2");
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);  
+}
+
+function toggleCursorVis() {
+    showCursor = !showCursor;
 }
 
 setInterval(moveCursor, 20);
