@@ -1,47 +1,49 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
-@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
+@import url("https://fonts.googleapis.com/css?family=Cutive+Mono");
 /*@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Martel+Sans:300&display=swap');*/
 
 body {
-	margin: 40px auto;
-	max-width: 650px;
-	line-height: 1.6;
-	font-size: 18px;
-	color: #444;
-	padding: 0 10px;
-    font-family: 'Open Sans', sans-serif;
+    margin: 40px auto;
+    max-width: 650px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0 10px;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
     /*-webkit-font-smoothing: antialiased;*/
 }
 
-h1, h2, h3 { 
-    font-family: 'Roboto', sans-serif;
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
     font-weight: 700;
-	line-height: 1.2;
+    line-height: 1.2;
 }
 
-h2, h3 {
-    padding: 0; 
+h2,
+h3 {
+    padding: 0;
     margin-bottom: 0;
 }
 
 h2 {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 p {
-  margin-top: 0px;
+    margin-top: 0px;
 }
 
-
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 /* unvisited link */
 a:link {
-	color: #444;	
+    color: #444;
 }
 
 /* visited link */
@@ -51,10 +53,10 @@ a:visited {
 
 /* mouse over link */
 a:hover {
-	text-decoration: underline;
-	text-decoration-skip: ink;
-	-webkit-text-decoration-color: #ff8c8c;
-  	text-decoration-color: #ff8c8c;
+    text-decoration: underline;
+    text-decoration-skip: ink;
+    -webkit-text-decoration-color: #ff8c8c;
+    text-decoration-color: #ff8c8c;
     color: #ff8c8c;
 }
 
@@ -90,8 +92,6 @@ p a:hover {
     text-decoration: none;
 }
 
-
-
 code pre {
     font-size: 16px;
     background-color: #333;
@@ -99,11 +99,11 @@ code pre {
     border-radius: 8px;
     display: block;
     padding: 20px;
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 .button {
@@ -128,11 +128,11 @@ code pre {
     padding: 10px;
 }
 /*.button:hover {
-	background-color: #e7e7e7;
+    background-color: #e7e7e7;
 }*/
 
 .poem {
-    font-family: 'Cutive Mono', monospace;
+    font-family: "Cutive Mono", monospace;
 }
 
 .em-peach.em-svg {
@@ -171,7 +171,12 @@ ul#jim li {
 hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0)
+    );
 }
 
 hr.interp {
@@ -190,9 +195,10 @@ h1.interp {
     opacity: 0.5;
 }
 
-#sprint2012 th::after {
-  content: " ⇕";
-  opacity: 0.4;
+#sprint2012 th::after,
+#kre th[onclick^="w3.sortHTML"]::after {
+    content: " ⇕";
+    opacity: 0.4;
 }
 
 .sprintInput {
@@ -200,9 +206,23 @@ h1.interp {
     display: block;
     /*margin: auto;*/
     font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     width: 40%;
     padding: 10px;
     border-radius: 4px;
     border: none;
+}
+
+kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    line-height: 10px;
+    color: #24292f;
+    vertical-align: middle;
+    background-color: #f6f8fa;
+    border: solid 1px rgb(175 184 193 / 20%);
+    border-bottom-color: rgb(175 184 193 / 20%);
+    border-radius: 4px;
+    box-shadow: inset 0 -1px 0 rgb(175 184 193 / 20%);
 }
