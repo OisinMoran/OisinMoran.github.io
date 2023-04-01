@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c" />
+        <meta name="theme-color" content="#ff8c8c" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Oisín Moran | Birthday Bisection</title>
+
+        <style>
+            body {
+                overflow: hidden;
+            }
+
+            .wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            #date-wrapper {
+                height: 55px;
+                transform-origin: center center;
+            }
+
+            #date {
+                display: flex;
+                justify-content: space-around;
+                color: #000;
+                font-family: courier;
+                font-size: 50px;
+                text-align: center;
+            }
+
+            #explainer {
+                color: #000;
+                font-family: courier;
+                font-size: 20px;
+                margin-top: -40px;
+                text-align: center;
+            }
+
+            .arrow {
+                opacity: 30%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="date-wrapper">
+                <div id="explainer">
+                    Enter your birthday <br />(left for earlier, right for later)
+                </div>
+                <div id="date">
+                    <div class="arrow" onclick="earlier()"><</div>
+                    <div id="actual-date">1965-03-17</div>
+                    <div class="arrow" onclick="later()">></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // set initial date
+            var lower = new Date("1907-03-04");
+            var upper = new Date();
+            var midpoint = new Date((lower.getTime() + upper.getTime()) / 2);
+            var midText = midpoint.toISOString().split("T")[0];
+            document.getElementById("actual-date").innerText = midText;
+
+            document.onkeydown = checkKey;
+            function checkKey(e) {
+                e = e || window.event;
+                if (e.keyCode == "37") {
+                    // left arrow (back)
+                    earlier();
+                } else if (e.keyCode == "39") {
+                    // right arrow (forward)
+                    later();
+                }
+            }
+
+            function earlier() {
+                setNewMidpoint(lower, midpoint);
+            }
+            function later() {
+                setNewMidpoint(midpoint, upper);
+            }
+
+            function setNewMidpoint(l, u) {
+                lower = l;
+                upper = u;
+                midpoint = new Date((lower.getTime() + upper.getTime()) / 2);
+                var midText = midpoint.toISOString().split("T")[0];
+                document.getElementById("actual-date").innerText = midText;
+            }
+        </script>
+    </body>
+</html>
