@@ -21,6 +21,10 @@
         <style>
             body {
                 overflow: hidden;
+                color: #000;
+                font-family: courier;
+                text-align: center;
+                font-size: 20px;
             }
 
             .wrapper {
@@ -38,20 +42,14 @@
 
             #date {
                 display: flex;
-                justify-content: space-around;
-                color: #000;
-                font-family: courier;
+                justify-content: space-around; 
                 font-size: 50px;
-                text-align: center;
             }
 
-            #explainer {
-                color: #000;
-                font-family: courier;
-                font-size: 20px;
+            #explainer {      
                 margin-top: -40px;
-                text-align: center;
             }
+
 
             .arrow {
                 opacity: 30%;
@@ -69,6 +67,12 @@
                     <div id="actual-date">1965-03-17</div>
                     <div class="arrow" onclick="later()">></div>
                 </div>
+                <div id="history">
+                    
+                </div>
+                <div id="count">
+                    
+                </div>
             </div>
         </div>
 
@@ -79,6 +83,7 @@
             var midpoint = new Date((lower.getTime() + upper.getTime()) / 2);
             var midText = midpoint.toISOString().split("T")[0];
             document.getElementById("actual-date").innerText = midText;
+            var stepCount = 0;
 
             document.onkeydown = checkKey;
             function checkKey(e) {
@@ -94,9 +99,15 @@
 
             function earlier() {
                 setNewMidpoint(lower, midpoint);
+                document.getElementById("history").innerText += "<";
+                stepCount += 1;
+                document.getElementById("count").innerText = stepCount;
             }
             function later() {
                 setNewMidpoint(midpoint, upper);
+                document.getElementById("history").innerText += ">";
+                stepCount += 1;
+                document.getElementById("count").innerText = stepCount;
             }
 
             function setNewMidpoint(l, u) {
