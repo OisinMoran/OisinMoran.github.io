@@ -80,6 +80,9 @@
             // set initial date
             var lower = new Date("1907-03-04");
             var upper = new Date();
+            const days = Math.floor((upper.getTime() - lower.getTime())/(3600*24*1000)) + 1
+            const maxLength = Math.ceil(Math.log2(days))
+
             var midpoint = new Date((lower.getTime() + upper.getTime()) / 2);
             var midText = midpoint.toISOString().split("T")[0];
             document.getElementById("actual-date").innerText = midText;
@@ -97,17 +100,23 @@
                 }
             }
 
+
+
             function earlier() {
                 setNewMidpoint(lower, midpoint);
-                // document.getElementById("history").innerText += "<";
-                // stepCount += 1;
-                // document.getElementById("count").innerText = stepCount;
+                if (document.getElementById("history").innerText.length < maxLength) {
+                    document.getElementById("history").innerText += "<";
+                    stepCount += 1;
+                    document.getElementById("count").innerText = stepCount;
+                }
             }
             function later() {
                 setNewMidpoint(midpoint, upper);
-                // document.getElementById("history").innerText += ">";
-                // stepCount += 1;
-                // document.getElementById("count").innerText = stepCount;
+                if (document.getElementById("history").innerText.length < maxLength) {
+                    document.getElementById("history").innerText += ">";
+                    stepCount += 1;
+                    document.getElementById("count").innerText = stepCount;
+                }
             }
 
             function setNewMidpoint(l, u) {
