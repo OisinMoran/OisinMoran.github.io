@@ -42,14 +42,13 @@
 
             #date {
                 display: flex;
-                justify-content: space-around; 
+                justify-content: space-around;
                 font-size: 50px;
             }
 
-            #explainer {      
+            #explainer {
                 margin-top: -40px;
             }
-
 
             .arrow {
                 opacity: 30%;
@@ -64,15 +63,11 @@
                 </div>
                 <div id="date">
                     <div class="arrow" onclick="earlier()"><</div>
-                    <div id="actual-date">1965-03-17</div>
+                    <div id="actual-date">XXXX-XX-XX</div>
                     <div class="arrow" onclick="later()">></div>
                 </div>
-                <div id="history">
-                    
-                </div>
-                <div id="count">
-                    
-                </div>
+                <div id="history"></div>
+                <div id="count"></div>
             </div>
         </div>
 
@@ -80,8 +75,8 @@
             // set initial date
             var lower = new Date("1907-03-04");
             var upper = new Date();
-            const days = Math.floor((upper.getTime() - lower.getTime())/(3600*24*1000)) + 1
-            const maxLength = Math.ceil(Math.log2(days))
+            const days = Math.floor((upper.getTime() - lower.getTime()) / (3600 * 24 * 1000)) + 1;
+            const maxLength = Math.ceil(Math.log2(days));
 
             var midpoint = new Date((lower.getTime() + upper.getTime()) / 2);
             var midText = midpoint.toISOString().split("T")[0];
@@ -99,8 +94,6 @@
                     later();
                 }
             }
-
-
 
             function earlier() {
                 setNewMidpoint(lower, midpoint);
