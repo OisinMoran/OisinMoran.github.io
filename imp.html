@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c">
+<meta name="theme-color" content="#ff8c8c">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Improv Musical Practice Tool</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body>
+
+<h1 id="randomWord" style="text-align: center;">???</h1>
+
+<!-- The div where the YouTube player will be embedded -->
+<div id="youtube-player"></div>
+
+<!-- Load the IFrame Player API code asynchronously. -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script type="text/javascript">
+    const words = ["ABSENCE", "ACCORD", "ACCOUNT", "ACID", "ACRE", "AFFAIR", "AGENT", "AMOUNT", "ANCHOR", "ANGEL", "ANGLE", "APPLE", "ARMOR", "ARRAY", "ARROW", "ARTIST", "ASPECT", "ATTACK", "AUTHOR", "AUTUMN", "BABY", "BANNER", "BARGAIN", "BARREL", "BASIN", "BASIS", "BASKET", "BATTLE", "BEAUTY", "BEAVER", "BEDROOM", "BEGGAR", "BEING", "BELIEF", "BERRY", "BLANKET", "BLESSING", "BODY", "BOTTOM", "BOUNDARY", "BUBBLE", "BUILDING", "BULLET", "BUREAU", "BUSHEL", "BUSINESS", "BUTCHER", "BUTTER", "BUTTON", "CABIN", "CABLE", "CAMPAIGN", "CANAL", "CANDLE", "CANDY", "CANNON", "CANOE", "CANVAS", "CAPTAIN", "CAPTIVE", "CARBON", "CAREER", "CARPET", "CARRIAGE", "CASTLE", "CATTLE", "CELLAR", "CENTER", "CHAIRMAN", "CHAMBER", "CHANNEL", "CHAPEL", "CHAPTER", "CHERRY", "CHIMNEY", "CIRCLE", "CIRCUIT", "CITY", "CLIMATE", "CLOSET", "CLOTHING", "CLUSTER", "COFFEE", "COLLAR", "COLLEGE", "COLONEL", "COLOUR", "COLUMN", "COMMERCE", "COMPASS", "COMPOUND", "COMRADE", "CONCERT", "CONGRESS", "CONQUEST", "CONTENTS", "CONTEST", "CONTRACT", "COPY", "CORNER", "COSTUME", "COTTAGE", "COTTON", "COUNTRY", "COUNTY", "COUPLE", "COURAGE", "COUSIN", "CREATURE", "CREDIT", "CRYSTAL", "CULTURE", "CURRENT", "CUSTOM", "DANGER", "DARKNESS", "DAUGHTER", "DAYLIGHT", "DEALER", "DEGREE", "DESPAIR", "DETAIL", "DEVICE", "DEVIL", "DIAMOND", "DIET", "DINNER", "DISEASE", "DISTANCE", "DISTRICT", "DOLLAR", "DOORWAY", "DOUBLE", "DRAGON", "DUTY", "EAGLE", "ECHO", "EFFECT", "EFFORT", "ELBOW", "ELDER", "EMPIRE", "ENGINE", "ERRAND", "ESTATE", "EVENING", "EVENT", "EXCESS", "EXTENT", "FABRIC", "FACTOR", "FAILURE", "FARMER", "FATHER", "FEATHER", "FEATURE", "FEELING", "FEVER", "FIGURE", "FINGER", "FLAVOR", "FOLLY", "FOOTBALL", "FOREHEAD", "FOREST", "FORTUNE", "FOUNTAIN", "FRONTIER", "FUNERAL", "FURY", "FUTURE", "GARDEN", "GARMENT", "GENIUS", "GESTURE", "GODDESS", "GOODBYE", "HABIT", "HAMMER", "HARBOUR", "HARNESS", "HARVEST", "HATRED", "HEAVEN", "HELMET", "HERALD", "HERO", "HIGHWAY", "HORROR", "HOTEL", "HUNTER", "HUSBAND", "ILLNESS", "IMAGE", "INCOME", "INSECT", "INSTANT", "INTEREST", "IRON", "ISLAND", "JACKET", "JERSEY", "JEWEL", "JOURNAL", "JOURNEY", "JUDGMENT", "JUSTICE", "KEEPER", "KINDNESS", "KINGDOM", "KITCHEN", "KITTEN", "LADY", "LANGUAGE", "LAUGHTER", "LAWYER", "LAYER", "LEADER", "LEARNING", "LEATHER", "LECTURE", "LEGEND", "LEMON", "LETTER", "LEVEL", "LILY", "LIMIT", "LINEN", "LION", "LIQUID", "LIQUOR", "LOVER", "LUMBER", "LUNCHEON", "MACHINE", "MADAM", "MAIDEN", "MAJOR", "MAKER", "MANNER", "MARBLE", "MARKET", "MARRIAGE", "MASTER", "MATTER", "MAYOR", "MEADOW", "MEANING", "MEANTIME", "MEETING", "MEMBER", "MERCHANT", "MERCY", "MERIT", "MESSAGE", "METAL", "METHOD", "MILLION", "MINUTE", "MIRROR", "MISCHIEF", "MISSION", "MISTAKE", "MISTRESS", "MIXTURE", "MODEL", "MOISTURE", "MOMENT", "MONARCH", "MONEY", "MONKEY", "MONSTER", "MOTHER", "MOTION", "MOTIVE", "MOTOR", "MOUNTAIN", "MOVIE", "MUSCLE", "MUSIC", "NATION", "NAVY", "NEEDLE", "NEPHEW", "NOTHING", "NOTION", "NOVEL", "NUMBER", "OBJECT", "OCEAN", "ODOR", "OFFENCE", "OLIVE", "ONION", "OPERA", "ORANGE", "ORCHARD", "ORGAN", "OUTLINE", "OVEN", "OWNER", "OYSTER", "PACKAGE", "PAINTER", "PAINTING", "PALACE", "PAPER", "PARCEL", "PARENT", "PARLOR", "PARTNER", "PARTY", "PASSION", "PASTURE", "PATENT", "PATIENCE", "PATIENT", "PATTERN", "PAYMENT", "PENNY", "PEPPER", "PERFUME", "PERSON", "PICTURE", "PIGEON", "PILLOW", "PILOT", "PISTOL", "PITCHER", "PLANET", "PLATFORM", "PLAYER", "PLEASURE", "POCKET", "POEM", "POLICE", "PONY", "POWDER", "PRAIRIE", "PRAYER", "PRESSURE", "PRINCESS", "PRISON", "PROBLEM", "PRODUCT", "PROGRAM", "PROJECT", "PROSPECT", "PROVINCE", "PUPIL", "PURSUIT", "PUZZLE", "QUARTER", "QUESTION", "RABBIT", "RAILWAY", "RATTLE", "READING", "REASON", "RECEIPT", "RECORD", "REFUGE", "RELIEF", "RESEARCH", "RESORT", "RESOURCE", "RIBBON", "RICHES", "RIDER", "RIFLE", "RIVAL", "RIVER", "ROBBER", "ROBIN", "RUBBER", "SADDLE", "SAILOR", "SALAD", "SANDWICH", "SCATTER", "SCHOLAR", "SCIENCE", "SEASON", "SECTION", "SENATE", "SENTENCE", "SERIES", "SERVANT", "SERVICE", "SHELTER", "SHEPHERD", "SHERIFF", "SHIPPING", "SHOWER", "SICKNESS", "SILENCE", "SILVER", "SINGER", "SINGLE", "SISTER", "SLIPPER", "SOLDIER", "SORROW", "SPARROW", "SPEAKER", "SPIDER", "SPIRIT", "SQUIRREL", "STANDARD", "STANZA", "STATION", "STATUS", "STEAMER", "STOCKING", "STOMACH", "STORY", "STUDENT", "SUBJECT", "SUCCESS", "SUGAR", "SULPHUR", "SUMMER", "SUNSET", "SUPPER", "SURFACE", "SURVEY", "SYSTEM", "TABLE", "TALENT", "TEACHER", "TEMPER", "TEMPLE", "THEATER", "THEORY", "THUNDER", "TICKET", "TIGER", "TIMBER", "TOTAL", "TRAFFIC", "TRAINING", "TRAITOR", "TREASURE", "TRIBUTE", "TRIUMPH", "TROUBLE", "TUNNEL", "TURKEY", "TWILIGHT", "UNCLE", "UNION", "UNIT", "VALLEY", "VALUE", "VAPOR", "VELVET", "VESSEL", "VICTIM", "VILLAGE", "VIRTUE", "VOYAGE", "WAGON", "WATER", "WEAKNESS", "WEAPON", "WEDDING", "WIDOW", "WILLOW", "WINDOW", "WINTER", "WISDOM", "WITNESS", "WOMEN", "WORKER", "WORSHIP", "WRINKLE", "WRITER", "WRITING"]
+
+
+    const randomWord = words[Math.floor(Math.random() * words.length)];
+
+    let header = document.getElementById("randomWord");
+    header.innerText = randomWord;
+
+
+
+    var player;
+
+    // This function creates an <iframe> (and YouTube player) after the API code downloads.
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-player', {
+            height: '315',
+            width: '560',
+            playerVars: {
+                listType: 'playlist',
+                list: 'PLeZLUr0aqjnCHHT8FhB7EQbl8hyUiTa24',
+                // shufflePlaylist: 1
+            },
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+
+    // The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+        let max = 2; // Maximum index (number of videos in the playlist - 1)
+        let min = 0; // Minimum index (start at 0)
+        let randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
+        event.target.playVideoAt(randomIndex);
+    }
+
+</script>
+
+
+</body>
+</html>
