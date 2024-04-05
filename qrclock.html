@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c">
+<meta name="theme-color" content="#ff8c8c">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.min.js"></script>
+<title>Oisín Moran | QR Clock</title>
+<!-- <link rel="stylesheet" type="text/css" href="main.css" /> -->
+
+<style>
+
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#time-wrapper {
+  height: 325px;
+  transform-origin: center center;
+}
+
+#time {
+  color: #000;
+  font-family: bebas;
+  font-size: 450px;
+  margin-top: -130px;
+  text-align: center;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div id="time-wrapper">
+        <div id="qr-code"></div>
+    </div>
+</div>
+
+<script>
+    function setTime() {
+
+        var d = new Date();
+        var hh = d.getHours().toString().padStart(2, '0');
+        var mm = d.getMinutes().toString().padStart(2, '0');
+        var ss = d.getSeconds().toString().padStart(2, '0');
+        var timestring = `${hh}:${mm}:${ss}`
+
+        document.getElementById("qr-code").innerHTML = '';
+
+        QrCreator.render({
+            text: timestring,
+            radius: 0.5, // 0.0 to 0.5
+            ecLevel: 'L', // L, M, Q, H
+            fill: '#bbb', // foreground color
+            background: null, // color or null for transparent
+            size: 128 // in pixels
+        }, document.querySelector('#qr-code'));
+    }
+
+    setTime();
+    setInterval(setTime, 1000);
+    
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
