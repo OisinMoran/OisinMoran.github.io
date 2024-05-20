@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Board</title>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+    }
+    .square {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+    .square[data-color="light"] {
+      background-color: #eee;
+    }
+    .square[data-color="dark"] {
+      background-color: #e66;
+    }
+    .piece {
+      cursor: pointer;
+      font-size: 36px;
+      background: none;  /* Ensure background is transparent */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="board" id="board"></div>
+  <div id="pieces">
+    <span class="piece" id="white_pawn_1" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_2" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_3" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_4" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_5" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_6" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_7" draggable="true">&#9817;</span>
+    <span class="piece" id="white_pawn_8" draggable="true">&#9817;</span>
+    <span class="piece" id="white_rook_1" draggable="true">&#9814;</span>
+    <span class="piece" id="white_rook_2" draggable="true">&#9814;</span>
+    <span class="piece" id="white_knight_1" draggable="true">&#9816;</span>
+    <span class="piece" id="white_knight_2" draggable="true">&#9816;</span>
+    <span class="piece" id="white_bishop_1" draggable="true">&#9815;</span>
+    <span class="piece" id="white_bishop_2" draggable="true">&#9815;</span>
+    <span class="piece" id="white_queen" draggable="true">&#9813;</span>
+    <span class="piece" id="white_king" draggable="true">&#9812;</span>
+
+    <span class="piece" id="black_pawn_1" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_2" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_3" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_4" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_5" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_6" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_7" draggable="true">&#9823;</span>
+    <span class="piece" id="black_pawn_8" draggable="true">&#9823;</span>
+    <span class="piece" id="black_rook_1" draggable="true">&#9820;</span>
+    <span class="piece" id="black_rook_2" draggable="true">&#9820;</span>
+    <span class="piece" id="black_knight_1" draggable="true">&#9822;</span>
+    <span class="piece" id="black_knight_2" draggable="true">&#9822;</span>
+    <span class="piece" id="black_bishop_1" draggable="true">&#9821;</span>
+    <span class="piece" id="black_bishop_2" draggable="true">&#9821;</span>
+    <span class="piece" id="black_queen" draggable="true">&#9819;</span>
+    <span class="piece" id="black_king" draggable="true">&#9818;</span>
+  </div>
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAUVDSayKhF0Vn16714mxEr1v9k0lhtU1E",
+      authDomain: "chess-c8768.firebaseapp.com",
+      databaseURL: "https://chess-c8768-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "chess-c8768",
+      storageBucket: "chess-c8768.appspot.com",
+      messagingSenderId: "887943203464",
+      appId: "1:887943203464:web:e9a3c1b13cbea6ca712d3d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    function readBoard() {
+      const dbRef = ref(database);
+      return get(child(dbRef, `/`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          return snapshot.val();
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+
+    function updatePieces(board) {
+      const pieces = document.querySelectorAll('.piece');
+      pieces.forEach(piece => {
+        const pieceId = piece.id;
+        const position = board[pieceId];
+        if (position) {
+          const square = document.querySelector(`[data-x='${position.x}'][data-y='${position.y}']`);
+          if (square) {
+            square.appendChild(piece);
+          }
+        }
+      });
+    }
+
+    function updateDatabase(piece, x, y) {
+      set(ref(database, piece), {
+        x: x,
+        y: y
+      });
+    }
+
+    function initializeBoard() {
+      const board = document.getElementById('board');
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const square = document.createElement('div');
+          square.className = 'square';
+          square.dataset.x = x;
+          square.dataset.y = y;
+          square.dataset.color = (x + y) % 2 === 0 ? 'light' : 'dark';
+          board.appendChild(square);
+        }
+      }
+
+      readBoard().then(boardData => {
+        if (boardData) {
+          updatePieces(boardData);
+        }
+      });
+    }
+
+    // Listen for real-time updates
+    const piecesRef = ref(database, '/');
+    onValue(piecesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        updatePieces(data);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', initializeBoard);
+
+    // Drag and drop functionality
+    document.addEventListener('dragstart', function(event) {
+      event.dataTransfer.setData('text/plain', event.target.id);
+    });
+
+    document.addEventListener('dragover', function(event) {
+      event.preventDefault();
+    });
+
+    document.addEventListener('drop', function(event) {
+      event.preventDefault();
+      const pieceId = event.dataTransfer.getData('text');
+      const piece = document.getElementById(pieceId);
+      const x = event.target.dataset.x;
+      const y = event.target.dataset.y;
+      if (x && y) {
+        event.target.appendChild(piece);
+        updateDatabase(pieceId, x, y);
+      }
+    });
+  </script>
+</body>
+</html>
