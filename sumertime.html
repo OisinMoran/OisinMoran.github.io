@@ -58,6 +58,13 @@
     let units = ["", "𒐕", "𒐖", "𒐗", "𒐘", "𒐙", "𒐚", "𒐛", "𒐜", "𒐝"];
     let tens = ["", "𒌋", "𒎙", "𒌍", "𒐏", "𒐐"];
 
+    // Android does not render symbol for twenty (20) [𒎙] U+12399, so replace with two tens
+    var ua = navigator.userAgent.toLowerCase();
+    var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+    if(isAndroid) {
+        tens[2] = "𒌋𒌋";
+    }
+
     function decimal_to_cuneiform(number) {
         return tens[Math.floor(number / 10)] + units[number % 10] || "&nbsp;&nbsp;";
     }
