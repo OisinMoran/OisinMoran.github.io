@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@TheOisinMoran" />
+    <meta property="og:url" content="https://oisinmoran.com/sumertime" />
+    <meta property="og:title" content="Sumerian Clock" />
+    <meta property="og:description" content="What your Casio would look like if it were made by Sumerians" />
+    <meta property="og:image" content="https://oisinmoran.com/sumertime.png" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c">
+    <meta name="theme-color" content="#ff8c8c">
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oisín Moran | Sumerian Clock</title>
+
+
+    <style>
+
+    body {
+        overflow: hidden;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        font-size: clamp(30px, 5vw, 60px);
+    }
+
+    #time-wrapper {
+/*      width: 320px;*/
+      transform-origin: center center;
+    }
+
+    #sumertime {
+        text-align: left;
+        width: clamp(200px, -40px + 40vw, 440px);
+    }
+
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div id="time-wrapper">
+        <div id="sumertime"></div>
+    </div>
+</div>
+
+<script>
+    let units = ["", "𒐕", "𒐖", "𒐗", "𒐘", "𒐙", "𒐚", "𒐛", "𒐜", "𒐝"];
+    let tens = ["", "𒌋", "𒎙", "𒌍", "𒐏", "𒐐"];
+
+    function decimal_to_cuneiform(number) {
+        return tens[Math.floor(number / 10)] + units[number % 10]
+    }
+
+    
+
+    function setTime() {
+
+        var d = new Date();
+        var hour = d.getHours();
+        var minute = d.getMinutes();
+        var second = d.getSeconds();
+
+        document.getElementById("sumertime").innerHTML = decimal_to_cuneiform(hour) + ":" + decimal_to_cuneiform(minute) + ":" + decimal_to_cuneiform(second);
+    }
+
+    setTime();
+    setInterval(setTime, 1000);
+    
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
