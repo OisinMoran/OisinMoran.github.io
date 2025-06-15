@@ -6,7 +6,7 @@
     <meta name="twitter:creator" content="@TheOisinMoran" />
     <meta property="og:url" content="https://oisinmoran.com/sumertime" />
     <meta property="og:title" content="Sumerian Clock" />
-    <meta property="og:description" content="What your Casio would look like if it were made by Sumerians" />
+    <meta property="og:description" content="What a digital would look like if it were made by Sumerians—the people to thank for our base-60 time." />
     <meta property="og:image" content="https://oisinmoran.com/sumertime.png" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -62,10 +62,7 @@
         return tens[Math.floor(number / 10)] + units[number % 10] || "&nbsp;&nbsp;";
     }
 
-    
-
     function setTime() {
-
         var d = new Date();
         var hour = d.getHours();
         var minute = d.getMinutes();
