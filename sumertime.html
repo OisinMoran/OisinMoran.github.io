@@ -59,7 +59,7 @@
     let tens = ["", "𒌋", "𒎙", "𒌍", "𒐏", "𒐐"];
 
     function decimal_to_cuneiform(number) {
-        return tens[Math.floor(number / 10)] + units[number % 10]
+        return tens[Math.floor(number / 10)] + units[number % 10] || "&nbsp;&nbsp;";
     }
 
     
