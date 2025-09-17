@@ -45,16 +45,17 @@
 
     <filter id="filter" color-interpolation-filters="sRGB">
       <feTurbulence
-      type="turbulence"
+      id="noise"
+      type="fractalNoise"
       baseFrequency="0.01"
       numOctaves="2"
-      result="turbulence" />
+      result="N" />
     </filter>
 
   </defs>
 
   <!-- <rect x="50%" y="50%" width="200" height="200" transform="translate(-100,-100)" fill="url(#pattern)" filter="url(#filter)"/> -->
-  <rect x="50%" y="50%" width="400" height="400" transform="translate(-200,-200)" fill="url(#circle)" filter="url(#filter)"/>
+  <rect x="50%" y="50%" width="400" height="400" transform="translate(-200,-200)" fill="url(#pattern)" filter="url(#filter)"/>
 
 
   <!-- <script type="text/javascript" href="./re.js"></script> -->
@@ -73,8 +74,15 @@
     }
 
     var kernel = tings.join(" ");
+
+    const noise = document.getElementById('noise');
+    const bf = 0.01 + Math.random()*0.08;         // 0.01–0.09
+    noise.setAttribute('baseFrequency', bf.toFixed(3));
+
+    const sd = 2 + Math.random()*3;         // 2-5
+
     var x = document.getElementById("filter");
-    var f = `<feGaussianBlur stdDeviation="4"/>
+    var f = `<feGaussianBlur stdDeviation="${sd}"/>
              <feConvolveMatrix edgeMode="wrap" order="${n},${n}" kernelMatrix="${kernel}"/>
              <feColorMatrix in="prev" type="saturate" values="0" result="gray"/>  <!-- R=G=B -->
              <feComponentTransfer>
@@ -98,3 +106,6 @@
 
 
 </svg>
+
+
+
