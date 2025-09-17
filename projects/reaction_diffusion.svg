@@ -39,21 +39,62 @@
 
      <pattern id="circle" patternUnits="userSpaceOnUse" width="225" height="225">
         <image xlink:href="circle.png" x="0" y="0" width="225" height="225"> </image>
+        <image xlink:href="circle.png" x="50" y="100" width="50" height="50"> </image>
     </pattern>
 
 
     <filter id="filter" color-interpolation-filters="sRGB">
+      <feTurbulence
+      type="turbulence"
+      baseFrequency="0.01"
+      numOctaves="2"
+      result="turbulence" />
     </filter>
 
   </defs>
 
-  <!-- <text class="filtered" x="20" y="85">Keifth</text> -->
-
-  <!-- <rect x="0" y="50" width="400" height="400" fill="url(#sqr)"/> -->
-  <!-- <rect x="300" y="50" width="200" height="200" fill="url(#pattern)" filter="url(#highpass)"/> -->
-  <!-- <rect x="50" y="300" width="200" height="200" fill="url(#pattern)" filter="url(#threshold)"/> -->
-  <rect x="750" y="320" width="400" height="400" fill="url(#sqr)" filter="url(#filter)"/>
+  <!-- <rect x="50%" y="50%" width="200" height="200" transform="translate(-100,-100)" fill="url(#pattern)" filter="url(#filter)"/> -->
+  <rect x="50%" y="50%" width="400" height="400" transform="translate(-200,-200)" fill="url(#circle)" filter="url(#filter)"/>
 
 
-  <script type="text/javascript" href="./re.js"></script>
+  <!-- <script type="text/javascript" href="./re.js"></script> -->
+  <script type="text/javascript"><![CDATA[
+    var n = 5;
+    var k = 1 / (n*n - 1);
+    var tings = []
+
+    for (var i=0; i < n*n; i++) {
+        if (i === Math.floor(n*n/2)) {
+            tings.push(-1.0005);    
+        }
+        else {
+            tings.push(k);
+        }
+    }
+
+    var kernel = tings.join(" ");
+    var x = document.getElementById("filter");
+    var f = `<feGaussianBlur stdDeviation="4"/>
+             <feConvolveMatrix edgeMode="wrap" order="${n},${n}" kernelMatrix="${kernel}"/>
+             <feColorMatrix in="prev" type="saturate" values="0" result="gray"/>  <!-- R=G=B -->
+             <feComponentTransfer>
+                <feFuncR type="discrete" tableValues="0 1"/>
+                <feFuncG type="discrete" tableValues="0 1"/>
+                <feFuncB type="discrete" tableValues="0 1"/>
+             </feComponentTransfer>`
+
+    let count = 0;
+    const MAX = 200;
+
+    function iterate() {
+      if (count >= MAX) return;          
+      x.insertAdjacentHTML('beforeend', f);
+      count++;
+      setTimeout(iterate, 30);
+    }
+
+    iterate();
+  ]]></script>
+
+
 </svg>
