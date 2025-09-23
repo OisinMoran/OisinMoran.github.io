@@ -24,18 +24,6 @@
 
     </style>
 
-    <linearGradient id="gradient">
-      <stop offset="0" stop-color="white"/>
-      <stop offset="0.5" stop-color="black"/>
-      <stop offset="1" stop-color="white"/>
-    </linearGradient>
-
-    <pattern id="pattern" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8cmVjdCB4PScwJyB5PScwJyB3aWR0aD0nOScgaGVpZ2h0PSc5JyBmaWxsPSdibGFjaycgLz4KPC9zdmc+" x="0" y="0" width="10" height="10"> </image> </pattern>
-   
-   
-    <pattern id="sqr" patternUnits="userSpaceOnUse" width="400" height="400">
-        <image xlink:href="sqr.jpg" x="0" y="0" width="400" height="400"> </image>
-    </pattern>
 
      <pattern id="circle" patternUnits="userSpaceOnUse" width="225" height="225">
         <image xlink:href="circle.png" x="0" y="0" width="225" height="225"> </image>
@@ -54,8 +42,7 @@
 
   </defs>
 
-  <!-- <rect x="50%" y="50%" width="200" height="200" transform="translate(-100,-100)" fill="url(#pattern)" filter="url(#filter)"/> -->
-  <rect x="50%" y="50%" width="400" height="400" transform="translate(-200,-200)" fill="url(#pattern)" filter="url(#filter)"/>
+  <rect x="50%" y="50%" width="400" height="400" transform="translate(-200,-200)" fill="url(#circle)" filter="url(#filter)"/>
 
 
   <!-- <script type="text/javascript" href="./re.js"></script> -->
@@ -83,8 +70,8 @@
 
     var x = document.getElementById("filter");
     var f = `<feGaussianBlur stdDeviation="${sd}"/>
-             <feConvolveMatrix edgeMode="wrap" order="${n},${n}" kernelMatrix="${kernel}"/>
-             <feColorMatrix in="prev" type="saturate" values="0" result="gray"/>  <!-- R=G=B -->
+             <feConvolveMatrix edgeMode="wrap" order="${n},${n}" kernelMatrix="${kernel}" />
+             <feColorMatrix type="saturate" values="0" />  <!-- R=G=B -->
              <feComponentTransfer>
                 <feFuncR type="discrete" tableValues="0 1"/>
                 <feFuncG type="discrete" tableValues="0 1"/>
