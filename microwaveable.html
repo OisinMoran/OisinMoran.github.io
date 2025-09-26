@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Define the grid dimensions and center it on the page */
+      #grid {
+        display: grid;
+        margin-top: 48px;
+        grid-template-columns: repeat(100, 12px);
+        grid-template-rows: repeat(25, 12px);
+        grid-gap: 2px;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Define the appearance of the squares */
+      .square {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 3px;
+        box-sizing: border-box;
+      }
+      /* Define the appearance of the filled squares */
+      .filled {
+        background-color: black;
+      }
+      .past {
+        opacity: 0.5;
+      }
+      .currentYear {
+        background-color: orange;
+        border: 1px solid orange;
+      }
+      .currentTime {
+        background-color: #e00;
+        border: 1px solid #e00;
+        opacity: 1;
+      }
+      .syzygy {
+        background-color: #0d0;
+        border: 1px solid #0d0;
+      }
+
+      #info {
+        margin-top: 48px;
+        display: grid;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="grid"></div>
+    <div id="info"></div>
+    <script>
+      
+      const info = document.getElementById("info");
+      const currentYear = new Date().getFullYear();
+      let now = new Date();
+      let currentTime = now.getHours() * 100 + now.getMinutes();
+      const totalMicrowaveableYears = 24*60;
+      let microwaveableCompleted = 0;
+
+      function draw() {
+        let grid = document.getElementById("grid");
+        grid.innerHTML=""
+        now = new Date();
+        currentTime = now.getHours() * 100 + now.getMinutes();
+        console.log(currentTime)
+
+        for (let i = 0; i < 2500; i++) {
+          const square = document.createElement("div");
+          square.classList.add("square");
+          if (isMicrowaveableYear(i)) {
+            square.classList.add("filled");          
+          }
+          if (isPast(i)) {
+            square.classList.add("past");
+            if (isMicrowaveableYear(i)) {
+              microwaveableCompleted+=1;
+            }
+          }
+          if (isCurrentYear(i) && isCurrentTime(i)) {
+            square.classList.add("syzygy");
+          }
+          if (isCurrentYear(i)) {
+            square.classList.add("currentYear");
+          }
+          if (isCurrentTime(i)) {
+            square.classList.add("currentTime");
+          }
+          
+          // Add a tooltip on hover that shows the year
+          square.title = i.toString();
+          grid.appendChild(square);
+        }
+      }
+
+      var date = new Date();
+
+      setTimeout(function() {
+          setInterval(draw, 60000);
+          draw();
+      }, (60 - date.getSeconds()) * 1000);
+
+      // draw();
+      // setInterval(draw, 10*1000);
+
+      function isMicrowaveableYear(year) {
+        const hours = Math.floor(year / 100);
+        const minutes = year % 100;
+        return hours < 24 && minutes < 60;
+      }
+      function isCurrentYear(year) {
+        return year === currentYear;
+      }
+      function isCurrentTime(year) {
+        return year === currentTime;
+      }
+      function isPast(year) {
+        return year < currentYear;
+      }
+
+      let completion = microwaveableCompleted/totalMicrowaveableYears;
+
+      info.innerHTML = `
+        <p>The current year (${currentYear}) is ${isMicrowaveableYear(currentYear) ? "" : "not "}microwaveable (${Math.floor(currentYear / 100)}:${currentYear % 100})</p>
+        <p>The year digital displays were first put on a microwave (1976), is not.</p>
+        <p>We are ${(completion*100).toFixed(2)}% (${microwaveableCompleted}/${totalMicrowaveableYears}) of the way through all microwaveable years. There are only ${totalMicrowaveableYears-microwaveableCompleted} left!</p>
+        <p>We are n years into the current x period ... started on x, end with y</p>
+        <p>Prev period</p>
+        <p>Next ...</p>
+        <p>2000 actually the first strictly microwaveable year ... digi display microwave ~1976, what about digital watch?</p>
+      `
+      console.log(microwaveableCompleted)
+      console.log(totalMicrowaveableYears)
+
+      // set timeout (clever way to update on the minute?) ya, https://stackoverflow.com/questions/2579762/setinterval-by-the-minute-on-the-minute
+      // 
+    </script>
+  </body>
+</html>

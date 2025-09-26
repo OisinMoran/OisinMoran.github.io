@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff8c8c" />
+        <meta name="theme-color" content="#ff8c8c" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Oisín Moran</title>
+        <link rel="stylesheet" type="text/css" href="main.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css"
+            integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ"
+            crossorigin="anonymous" />
+        <!-- The loading of KaTeX is deferred to speed up page rendering -->
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"
+            integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij"
+            crossorigin="anonymous"></script>
+        <!-- To automatically render math in text elements, include the auto-render extension: -->
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"
+            integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+            crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+        <style>
+            canvas {
+                border: 1px solid #d3d3d3;
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+
+    <body onload="startGame()">
+        <script>
+            var myGamePiece;
+
+            function startGame() {
+                myGamePiece = new component(30, 30, "red", 225, 0);
+                myGameArea.start();
+            }
+
+            var myGameArea = {
+                canvas: document.createElement("canvas"),
+                start: function () {
+                    this.canvas.width = 480;
+                    this.canvas.height = 270;
+                    this.context = this.canvas.getContext("2d");
+                    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                    this.frameNo = 0;
+                    this.interval = setInterval(updateGameArea, 20);
+                    window.addEventListener("keydown", function (e) {
+                        e.preventDefault();
+                        myGameArea.keys = myGameArea.keys || [];
+                        myGameArea.keys[e.keyCode] = e.type == "keydown";
+                    });
+                    window.addEventListener("keyup", function (e) {
+                        myGameArea.keys[e.keyCode] = e.type == "keydown";
+                    });
+                },
+                stop: function () {
+                    clearInterval(this.interval);
+                },
+                clear: function () {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                },
+            };
+
+            function component(width, height, color, x, y, type) {
+                this.type = type;
+                this.width = width;
+                this.height = height;
+                this.speed = 0;
+                this.xspeed = 0;
+                this.yspeed = 0;
+                this.angle = 0;
+                this.moveAngle = 0;
+                this.locked = false;
+                this.x = x;
+                this.y = y;
+                this.gravitySpeed = 1;
+                this.update = function () {
+                    ctx = myGameArea.context;
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.fillStyle = color;
+                    ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+                    ctx.restore();
+                };
+                this.newPos = function () {
+                    this.angle += (this.moveAngle * Math.PI) / 180;
+                    this.x += this.xspeed;
+                    this.y += this.gravitySpeed + this.yspeed;
+                    this.xspeed = 0;
+                    this.yspeed = 0;
+                    this.hitBottom();
+                };
+                this.hitBottom = function () {
+                    var rockbottom = myGameArea.canvas.height - this.height;
+                    if (this.y > rockbottom) {
+                        this.y = rockbottom;
+                        this.gravitySpeed = 0;
+                        // also want to just generally stop
+                        this.locked = true;
+                    }
+                };
+            }
+
+            function updateGameArea() {
+                myGameArea.clear();
+                myGamePiece.moveAngle = 0;
+                myGamePiece.speed = 0;
+                if (!myGamePiece.locked) {
+                    // TRANSLATION
+                    if (myGameArea.keys && myGameArea.keys[37]) { // left
+                        myGamePiece.xspeed = -1;
+                    }
+                    if (myGameArea.keys && myGameArea.keys[39]) { // right
+                        myGamePiece.xspeed = 1;
+                    }
+                    if (myGameArea.keys && myGameArea.keys[38]) { // up
+                        myGamePiece.yspeed = 1;
+                    }
+                    if (myGameArea.keys && myGameArea.keys[40]) { // down
+                        myGamePiece.yspeed = 1;
+                    }
+                    // ROTATION
+                    if (myGameArea.keys && myGameArea.keys[65]) { // A
+                        myGamePiece.moveAngle = -1;
+                    }
+                    if (myGameArea.keys && myGameArea.keys[68]) { // D
+                        myGamePiece.moveAngle = 1;
+                    }
+                    // if (myGameArea.keys && myGameArea.keys[87]) { // W
+                    //     myGamePiece.speed = 1;
+                    // }
+                    // if (myGameArea.keys && myGameArea.keys[83]) { // S
+                    //     myGamePiece.speed = -1;
+                    // }
+                }
+                myGamePiece.newPos();
+                myGamePiece.update();
+            }
+        </script>
+
+        <p>
+            Make sure the gamearea has focus, and use the arrow keys to move the red square around.
+        </p>
+    </body>
+</html>
