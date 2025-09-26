@@ -25,7 +25,10 @@
   <body>
     <div>
       <button id="enableBtn" hidden>Enable motion access</button>
-      <div id="kevin" class="inter-bits">KEVIN</div>
+      <div id="kevin" class="inter-bits"></div>
+      <div id="alpha" class="inter-bits"></div>
+      <div id="beta" class="inter-bits"></div>
+      <div id="gamma" class="inter-bits"></div>
     </div>
 
     <script>    
@@ -48,10 +51,14 @@
         const s = 100 * (leftToRight + 90) / 180;       // -90–90 → 0–100
         const l = 100 * (frontToBack + 180) / 360;      // -180–180 → 0–100
         const col = `hsl(${h}, ${s}%, ${l}%)`;
-        document.body.style.backgroundColor = col;
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
-        document.getElementById('kevin').style.transform = `rotate(${h}deg)`;
-        document.getElementById('kevin').style.color = l > 40 ? "#000" : "#FFF";
+        frontToBack, leftToRight, rotateDegrees
+        document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees}`
+        document.getElementById('beta').innerHTML = `Beta: ${frontToBack}`
+        document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight}`
+        // document.body.style.backgroundColor = col;
+        // document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
+        // document.getElementById('kevin').style.transform = `rotate(${h}deg)`;
+        // document.getElementById('kevin').style.color = l > 40 ? "#000" : "#FFF";
         // document.getElementById('kevin').style.fontWeight = l*8 + 100;
       };
     </script>
