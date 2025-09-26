@@ -15,7 +15,7 @@
   <body>
     <div>
       <button id="enableBtn" hidden>Enable motion access</button>
-      <div id="kevin">KEVIN</div>
+      <div id="kevin">KEVINK</div>
     </div>
 
     <script>    
@@ -40,9 +40,8 @@
         const col = `hsl(${h}, ${s}%, ${l}%)`;
         document.body.style.backgroundColor = col;
         document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
-        document.getElementById('kevin').style.transform = `rotate(${rotateDegrees}deg)`;
+        document.getElementById('kevin').style.transform = `rotate(${rotateDegrees + 90}deg)`;
         document.getElementById('kevin').style.color = l > 40 ? "#000" : "#FFF";
-        console.log(h,s,l);
       };
     </script>
   </body>
