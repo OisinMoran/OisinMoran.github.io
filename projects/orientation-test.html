@@ -9,7 +9,7 @@
       html, body { height: 100%; margin: 0; }
       body { display: grid; place-items: center; }  /* centers children */
       html { font-family: sans-serif; }
-      #kevin { font-size: 48px; text-align: center; }
+      #kevin { font-size: 48px; text-align: center; color: #00f}
     </style>
   </head>
   <body>
@@ -41,6 +41,8 @@
         document.body.style.backgroundColor = col;
         document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
         document.getElementById('kevin').style.transform = `rotate(${rotateDegrees}deg)`;
+        document.getElementById('kevin').style.color = l > 40 ? "#000" : "#FFF";
+        console.log(h,s,l);
       };
     </script>
   </body>
