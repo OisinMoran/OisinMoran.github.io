@@ -1,0 +1,222 @@
+<html lang="en" class=" hzycndp idc0_343"><head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          :root {
+            --text-primary: #1b1b1b;
+            --background-primary: #fff;
+          }
+        </style>
+        
+        
+        <style>
+              @font-face {
+                font-family: "Inter";
+                font-weight: 1 999;
+                font-stretch: 75% 100%;
+                font-style: oblique 0deg 20deg;
+                font-display: swap;
+              }
+
+              body {
+
+                font:
+                  400 1rem/1.1876 Inter,
+                  BlinkMacSystemFont,
+                  "Segoe UI",
+                  "Roboto",
+                  "Oxygen",
+                  "Ubuntu",
+                  "Cantarell",
+                  "Fira Sans",
+                  "Droid Sans",
+                  "Helvetica Neue",
+                  sans-sans;
+              }
+
+              section {
+                height: 100%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+
+              section.flex-column {
+                flex-direction: column;
+                align-items: initial;
+              }
+
+              /* some examples does not work with a flex display on the container */
+              section.display-block {
+                display: block;
+              }
+
+              section img {
+                flex-grow: 0;
+              }
+
+              section.hidden {
+                display: none;
+              }
+
+              .transition-all {
+                transition: all 0.3s ease-in;
+              }
+
+              * {
+                box-sizing: border-box;
+              }
+            </style>
+        <style id="css-output">
+          #default-example {
+            background: linear-gradient(skyblue, khaki);
+            perspective: 550px;
+          }
+
+          #example-element {
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+          transform-origin: 50% 50%;  
+          }
+
+          .face {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: inherit;
+            font-size: 60px;
+            color: white;
+          }
+
+          .front {
+            background: rgb(90 90 90 / 0.7);
+            transform: translateZ(50px);
+          }
+
+          .back {
+            background: rgb(0 210 0 / 0.7);
+            transform: rotateY(180deg) translateZ(50px);
+          }
+
+          .right {
+            background: rgb(210 0 0 / 0.7);
+            transform: rotateY(90deg) translateZ(50px);
+          }
+
+          .left {
+            background: rgb(0 0 210 / 0.7);
+            transform: rotateY(-90deg) translateZ(50px);
+          }
+
+          .top {
+            background: rgb(210 210 0 / 0.7);
+            transform: rotateX(90deg) translateZ(50px);
+          }
+
+          .bottom {
+            background: rgb(210 0 210 / 0.7);
+            transform: rotateX(-90deg) translateZ(50px);
+          }
+
+      </style>
+    </head>
+    <body>
+  <section class="default-example" id="default-example">
+    <div class="transition-all" id="example-element">
+      <div class="face front">1</div>
+      <div class="face back">2</div>
+      <div class="face right">3</div>
+      <div class="face left">4</div>
+      <div class="face top">5</div>
+      <div class="face bottom">6</div>
+    </div>
+</section>
+      
+
+      <script>
+const D2R = Math.PI/180;
+
+function screenAngle() {
+  return (screen.orientation && screen.orientation.angle) || window.orientation || 0;
+}
+
+// Multiply quaternions a*b
+function qMul(a,b){return{
+  w:a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
+  x:a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
+  y:a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
+  z:a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
+};}
+
+// Axis-angle to quaternion
+function qAxis(axis, angleRad){
+  const s = Math.sin(angleRad/2), c = Math.cos(angleRad/2);
+  return {w:c, x:axis[0]*s, y:axis[1]*s, z:axis[2]*s};
+}
+
+// Euler Z-X-Y (intrinsic) → quaternion per DeviceOrientation spec
+function qFromDeviceEuler(alpha,beta,gamma){
+  const z = alpha*D2R, x = beta*D2R, y = gamma*D2R;
+  const cz=Math.cos(z/2), sz=Math.sin(z/2);
+  const cx=Math.cos(x/2), sx=Math.sin(x/2);
+  const cy=Math.cos(y/2), sy=Math.sin(y/2);
+
+  // Intrinsic Z * X * Y
+  return {
+    w: cz*cx*cy - sz*sx*sy,
+    x: cz*sx*cy + sz*cx*sy,
+    y: cz*cx*sy - sz*sx*cy,
+    z: sz*cx*cy + cz*sx*sy
+  };
+}
+
+// Quaternion → CSS matrix3d string
+function qToMatrix3d(q){
+  const {x,y,z,w} = q;
+  const xx=x*x, yy=y*y, zz=z*z;
+  const xy=x*y, xz=x*z, yz=y*z;
+  const wx=w*x, wy=w*y, wz=w*z;
+
+  const m11 = 1 - 2*(yy+zz);
+  const m12 = 2*(xy - wz);
+  const m13 = 2*(xz + wy);
+
+  const m21 = 2*(xy + wz);
+  const m22 = 1 - 2*(xx+zz);
+  const m23 = 2*(yz - wx);
+
+  const m31 = 2*(xz - wy);
+  const m32 = 2*(yz + wx);
+  const m33 = 1 - 2*(xx+yy);
+
+  // column-major matrix3d(a,b,c,d, e,f,g,h, i,j,k,l, m,n,o,p)
+  return `matrix3d(${m11},${m21},${m31},0, ${m12},${m22},${m32},0, ${m13},${m23},${m33},0, 0,0,0,1)`;
+}
+
+const qAlign = qAxis([1,0,0], +Math.PI/2);       // +90° about X to map device → CSS
+window.addEventListener('deviceorientation', (e)=>{
+  const alpha = e.alpha ?? 0;
+  const beta  = e.beta  ?? 0;
+  const gamma = e.gamma ?? 0;
+
+  // Base device quaternion from spec angles
+  let q = qFromDeviceEuler(alpha, beta, gamma);
+
+  // Apply alignment (device coords → CSS coords)
+  q = qMul(q, qAlign);
+
+  // Undo the screen orientation (rotate about Z by -screenAngle)
+  const qScr = qAxis([0,0,1], -screenAngle()*D2R);
+  q = qMul(q, qScr);
+
+  document.getElementById('example-element').style.transform = qToMatrix3d(q);
+}, true);
+</script>
+
+    
+  </body></html>
