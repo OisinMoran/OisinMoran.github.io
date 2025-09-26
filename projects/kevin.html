@@ -52,9 +52,9 @@
         const l = 100 * (frontToBack + 180) / 360;      // -180–180 → 0–100
         const col = `hsl(${h}, ${s}%, ${l}%)`;
         frontToBack, leftToRight, rotateDegrees
-        document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees.toFixed(2)}`
-        document.getElementById('beta').innerHTML = `Beta: ${frontToBack.toFixed(2)}`
-        document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight.toFixed(2)}`
+        document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees.toFixed(1)}`
+        document.getElementById('beta').innerHTML = `Beta: ${frontToBack.toFixed(1)}`
+        document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight.toFixed(1)}`
         // document.body.style.backgroundColor = col;
         // document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
         // document.getElementById('kevin').style.transform = `rotate(${h}deg)`;
