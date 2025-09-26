@@ -9,7 +9,7 @@
       html, body { height: 100%; margin: 0; }
       body { display: grid; place-items: center; }  /* centers children */
       html { font-family: sans-serif; }
-      #kevin { font-size: 24px; text-align: center; }
+      #kevin { font-size: 48px; text-align: center; }
     </style>
   </head>
   <body>
@@ -18,7 +18,8 @@
       <div id="kevin">KEVIN</div>
     </div>
 
-    <script>
+    <script>    
+
       if (window.DeviceOrientationEvent) {
         window.addEventListener(
           "deviceorientation",
@@ -39,7 +40,7 @@
         const col = `hsl(${h}, ${s}%, ${l}%)`;
         document.body.style.backgroundColor = col;
         document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
-        document.querySelector('#kevin').style.transform = `rotate(${rotateDegrees})`;
+        document.getElementById('kevin').style.transform = `rotate(${rotateDegrees}deg)`;
       };
     </script>
   </body>
