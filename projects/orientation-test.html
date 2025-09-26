@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#f00" />
-        <title>?</title>
-    </head>
-    <body>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f00" />
+    <title>KEVIN</title>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; }
+      body { display: grid; place-items: center; }  /* centers children */
+      html { font-family: sans-serif; }
+      #kevin { font-size: 24px; text-align: center; }
+    </style>
+  </head>
+  <body>
     <div>
       <button id="enableBtn" hidden>Enable motion access</button>
+      <div id="kevin">KEVIN</div>
     </div>
 
-
     <script>
-        if (window.DeviceOrientationEvent) {
-          window.addEventListener(
-            "deviceorientation",
-            (event) => {
-              const rotateDegrees = event.alpha; // alpha: rotation around z-axis [0, 360)
-              const frontToBack = event.beta; // beta: front back motion [-180, 180)
-              const leftToRight = event.gamma; // gamma: left to right [-90, 90)
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener(
+          "deviceorientation",
+          (event) => {
+            const rotateDegrees = event.alpha;   // [0, 360)
+            const frontToBack   = event.beta;    // [-180, 180)
+            const leftToRight   = event.gamma;   // [-90, 90)
+            handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
+          },
+          true
+        );
+      }
 
-              handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
-            },
-            true,
-          );
-        }
-
-        const handleOrientationEvent = (frontToBack, leftToRight, rotateDegrees) => {
-          // normalize
-          h = rotateDegrees // 0-360
-          s = 100*(leftToRight + 90)/180  // -90-90
-          l = 100*(frontToBack + 180)/360 // -180-180
-
-          let col = `hsl(${h}, ${s}%, ${l}%)`
-
-          document.body.style.backgroundColor = col;
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', col);    
-        };
+      const handleOrientationEvent = (frontToBack, leftToRight, rotateDegrees) => {
+        const h = rotateDegrees;                        // 0–360
+        const s = 100 * (leftToRight + 90) / 180;       // -90–90 → 0–100
+        const l = 100 * (frontToBack + 180) / 360;      // -180–180 → 0–100
+        const col = `hsl(${h}, ${s}%, ${l}%)`;
+        document.body.style.backgroundColor = col;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
+        document.querySelector('#kevin').style.transform = `rotate(${rotateDegrees})`;
+      };
     </script>
-    </body>
-
+  </body>
 </html>
-
-
-
-
-
