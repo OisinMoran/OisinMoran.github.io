@@ -78,7 +78,9 @@
             width: 100px;
             height: 100px;
             transform-style: preserve-3d;
-          transform-origin: 50% 50%;  
+            transform-origin: 50% 50%;
+            will-change: transform;
+            backface-visibility: hidden;
           }
 
           .face {
@@ -138,35 +140,31 @@
 </section>
       
 
-      <script>
-const D2R = Math.PI/180;
+<script>
+const D2R = Math.PI / 180;
 
-function screenAngle() {
-  return (screen.orientation && screen.orientation.angle) || window.orientation || 0;
-}
+// cache DOM + state
+const el = document.getElementById('example-element');
+const latest = { a:0, b:0, g:0, dirty:false };
 
-// Multiply quaternions a*b
-function qMul(a,b){return{
-  w:a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
-  x:a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
-  y:a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
-  z:a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
-};}
+// super cheap screen angle fetch
+const getOrient = () =>
+  (screen.orientation && screen.orientation.angle) || window.orientation || 0;
 
-// Axis-angle to quaternion
-function qAxis(axis, angleRad){
-  const s = Math.sin(angleRad/2), c = Math.cos(angleRad/2);
-  return {w:c, x:axis[0]*s, y:axis[1]*s, z:axis[2]*s};
-}
+// sensor → just store values (passive, no layout)
+window.addEventListener('deviceorientation', (e) => {
+  latest.a = e.alpha || 0;   // z
+  latest.b = e.beta  || 0;   // x
+  latest.g = e.gamma || 0;   // y
+  latest.dirty = true;
+}, { passive: true });
 
-// Euler Z-X-Y (intrinsic) → quaternion per DeviceOrientation spec
-function qFromDeviceEuler(alpha,beta,gamma){
-  const z = alpha*D2R, x = beta*D2R, y = gamma*D2R;
-  const cz=Math.cos(z/2), sz=Math.sin(z/2);
-  const cx=Math.cos(x/2), sx=Math.sin(x/2);
-  const cy=Math.cos(y/2), sy=Math.sin(y/2);
-
-  // Intrinsic Z * X * Y
+// quaternion helpers (no allocations)
+function qFromEulerZXY(a, b, g) {
+  const z=a*D2R/2, x=b*D2R/2, y=g*D2R/2;
+  const cz=Math.cos(z), sz=Math.sin(z);
+  const cx=Math.cos(x), sx=Math.sin(x);
+  const cy=Math.cos(y), sy=Math.sin(y);
   return {
     w: cz*cx*cy - sz*sx*sy,
     x: cz*sx*cy + sz*cx*sy,
@@ -174,48 +172,51 @@ function qFromDeviceEuler(alpha,beta,gamma){
     z: sz*cx*cy + cz*sx*sy
   };
 }
-
-// Quaternion → CSS matrix3d string
-function qToMatrix3d(q){
-  const {x,y,z,w} = q;
+function qMul(a,b){ return {
+  w:a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
+  x:a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
+  y:a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
+  z:a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
+};}
+function qAxis(ax, ang){
+  const s=Math.sin(ang/2), c=Math.cos(ang/2);
+  return { w:c, x:ax[0]*s, y:ax[1]*s, z:ax[2]*s };
+}
+function mat3dFromQ(q){
+  const x=q.x,y=q.y,z=q.z,w=q.w;
   const xx=x*x, yy=y*y, zz=z*z;
   const xy=x*y, xz=x*z, yz=y*z;
   const wx=w*x, wy=w*y, wz=w*z;
-
-  const m11 = 1 - 2*(yy+zz);
-  const m12 = 2*(xy - wz);
-  const m13 = 2*(xz + wy);
-
-  const m21 = 2*(xy + wz);
-  const m22 = 1 - 2*(xx+zz);
-  const m23 = 2*(yz - wx);
-
-  const m31 = 2*(xz - wy);
-  const m32 = 2*(yz + wx);
-  const m33 = 1 - 2*(xx+yy);
-
-  // column-major matrix3d(a,b,c,d, e,f,g,h, i,j,k,l, m,n,o,p)
-  return `matrix3d(${m11},${m21},${m31},0, ${m12},${m22},${m32},0, ${m13},${m23},${m33},0, 0,0,0,1)`;
+  // column-major for CSS matrix3d
+  return [
+    1-2*(yy+zz), 2*(xy+wz),  2*(xz-wy),  0,
+    2*(xy-wz),   1-2*(xx+zz),2*(yz+wx),  0,
+    2*(xz+wy),   2*(yz-wx),  1-2*(xx+yy),0,
+    0,0,0,1
+  ];
 }
 
-const qAlign = qAxis([1,0,0], +Math.PI/2);       // +90° about X to map device → CSS
-window.addEventListener('deviceorientation', (e)=>{
-  const alpha = e.alpha ?? 0;
-  const beta  = e.beta  ?? 0;
-  const gamma = e.gamma ?? 0;
+// constant alignment: device coords → CSS (rotate X +90°)
+const qAlign = qAxis([1,0,0], +Math.PI/2);
 
-  // Base device quaternion from spec angles
-  let q = qFromDeviceEuler(alpha, beta, gamma);
+function frame(){
+  requestAnimationFrame(frame);
+  if (!latest.dirty) return;
+  latest.dirty = false;
 
-  // Apply alignment (device coords → CSS coords)
+  // build orientation
+  let q = qFromEulerZXY(latest.a, latest.b, latest.g);
   q = qMul(q, qAlign);
-
-  // Undo the screen orientation (rotate about Z by -screenAngle)
-  const qScr = qAxis([0,0,1], -screenAngle()*D2R);
+  // remove screen rotation about Z
+  const qScr = qAxis([0,0,1], -getOrient()*D2R);
   q = qMul(q, qScr);
 
-  document.getElementById('example-element').style.transform = qToMatrix3d(q);
-}, true);
+  const m = mat3dFromQ(q);
+  // single style write; translateZ(0) keeps it on GPU
+  el.style.transform =
+    `matrix3d(${m.join(',')}) translateZ(0)`;
+}
+frame();
 </script>
 
     
