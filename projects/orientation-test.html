@@ -4,28 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f00" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <title>KEVIN</title>
+    <title>?</title>
     <style type="text/css">
       html, body { height: 100%; margin: 0; }
       body { display: grid; place-items: center; }  /* centers children */
       html { font-family: sans-serif; }
-      #kevin { font-size: 48px; text-align: center; color: #00f}
-      .inter-bits {
-        font-family: "Inter", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 600;
-        font-style: normal;
-      }
     </style>
   </head>
   <body>
     <div>
-      <button id="enableBtn" hidden>Enable motion access</button>
-      <div id="kevin" class="inter-bits">KEVIN</div>
+      <button id="enableBtn">Enable motion access</button>
     </div>
 
     <script>    
@@ -50,9 +38,8 @@
         const col = `hsl(${h}, ${s}%, ${l}%)`;
         document.body.style.backgroundColor = col;
         document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
-        // document.getElementById('kevin').style.transform = `rotate(${rotateDegrees}deg)`;
+        document.getElementById('kevin').style.transform = `rotate(${rotateDegrees}deg)`;
         document.getElementById('kevin').style.color = l > 40 ? "#000" : "#FFF";
-        document.getElementById('kevin').style.fontWeight = l*8 + 100;
       };
     </script>
   </body>

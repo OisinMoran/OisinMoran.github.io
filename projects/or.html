@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ff0000" />
+    <title>Device Orientation Color</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body { display: grid; place-items: center; color: #fff; font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      button { font: inherit; padding: .75rem 1rem; border-radius: .75rem; border: 0; }
+      .hint { opacity: .8; margin-top: .5rem; text-align: center; max-width: 26rem; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="enableBtn" hidden>Enable motion access</button>
+    </div>
+
+    <script>
+      // Utility: clamp a number
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+      // Normalize angles to HSL:
+      // alpha (0..360) -> hue
+      // gamma (-90..90) -> saturation (0..100)
+      // beta (-180..180) -> lightness (0..100)
+      const toColor = ({ alpha, beta, gamma }) => {
+        const h = (typeof alpha === 'number') ? ((alpha % 360 + 360) % 360) : 0;
+
+        // gamma ∈ [-90, 90] → [0,100]
+        const s = (typeof gamma === 'number')
+          ? ((gamma + 90) / 180) * 100
+          : 50;
+
+        // beta ∈ [-180, 180] → [0,100]
+        const l = (typeof beta === 'number')
+          ? ((beta + 180) / 360) * 100
+          : 50;
+
+        const S = clamp(s, 0, 100).toFixed(1);
+        const L = clamp(l, 0, 100).toFixed(1);
+        const H = h.toFixed(1);
+
+        return `hsl(${H} ${S}% ${L}%)`;
+      };
+
+      const onOrientation = (event) => {
+        // Some iOS versions may provide nulls; handle gracefully
+        const payload = {
+          alpha: event.alpha,   // rotation around z-axis (0..360) (may be null on iOS if no compass)
+          beta: event.beta,     // front-to-back (-180..180)
+          gamma: event.gamma    // left-to-right (-90..90)
+        };
+        const col = toColor(payload);
+        document.body.style.backgroundColor = col;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', col);
+      };
+
+      const start = () => {
+        window.addEventListener('deviceorientation', onOrientation, true);
+      };
+
+      (function init() {
+        const enableBtn = document.getElementById('enableBtn');
+
+        // iOS 13+: needs a user gesture & HTTPS to request permission
+        const needsPermission =
+          typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function';
+
+        if (needsPermission) {
+          enableBtn.hidden = false;
+          enableBtn.addEventListener('click', async () => {
+            try {
+              const state = await DeviceOrientationEvent.requestPermission();
+              if (state === 'granted') {
+                enableBtn.remove();
+                start();
+              } else {
+                enableBtn.textContent = 'Motion access denied. Tap to try again';
+              }
+            } catch (e) {
+              enableBtn.textContent = 'Error requesting motion access. Tap to retry';
+              console.error(e);
+            }
+          });
+        } else {
+          // Non-iOS (or older iOS) can start immediately
+          start();
+        }
+      })();
+    </script>
+  </body>
+</html>
