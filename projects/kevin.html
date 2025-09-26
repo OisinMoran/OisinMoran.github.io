@@ -25,7 +25,7 @@
   <body>
     <div>
       <button id="enableBtn" hidden>Enable motion access</button>
-      <div id="kevin" class="inter-bits"></div>
+      <div id="kevin" class="inter-bits">KEVIN</div>
       <div id="alpha" class="inter-bits"></div>
       <div id="beta" class="inter-bits"></div>
       <div id="gamma" class="inter-bits"></div>
@@ -51,10 +51,15 @@
         const s = 100 * (leftToRight + 90) / 180;       // -90–90 → 0–100
         const l = 100 * (frontToBack + 180) / 360;      // -180–180 → 0–100
         const col = `hsl(${h}, ${s}%, ${l}%)`;
-        frontToBack, leftToRight, rotateDegrees
-        document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees.toFixed(1)}`
-        document.getElementById('beta').innerHTML = `Beta: ${frontToBack.toFixed(1)}`
-        document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight.toFixed(1)}`
+        if (rotateDegrees&frontToBack&leftToRight) {
+          // document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees.toFixed(1)}`;
+          // document.getElementById('beta').innerHTML = `Beta: ${frontToBack.toFixed(1)}`;
+          // document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight.toFixed(1)}`;
+          document.getElementById('kevin').style.transform = `scale(1, ${1/Math.sin(frontToBack * (Math.PI/180))})`;
+        } else {
+          console.log("No sensor info");
+          // document.getElementById('alpha').innerHTML = `No sensor info`;
+        }
         // document.body.style.backgroundColor = col;
         // document.querySelector('meta[name="theme-color"]').setAttribute('content', col);
         // document.getElementById('kevin').style.transform = `rotate(${h}deg)`;
