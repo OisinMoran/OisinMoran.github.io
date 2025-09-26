@@ -13,6 +13,7 @@
       html, body { height: 100%; margin: 0; }
       body { display: grid; place-items: center; }  /* centers children */
       html { font-family: sans-serif; }
+      #cont { perspective-origin: center; perspective:20cm; }
       #kevin { font-size: 48px; text-align: center; color: #00f}
       .inter-bits {
         font-family: "Inter", sans-serif;
@@ -23,7 +24,7 @@
     </style>
   </head>
   <body>
-    <div>
+    <div id="cont">
       <button id="enableBtn" hidden>Enable motion access</button>
       <div id="kevin" class="inter-bits">KEVIN</div>
       <div id="alpha" class="inter-bits"></div>
@@ -55,7 +56,12 @@
           // document.getElementById('alpha').innerHTML = `Alpha: ${rotateDegrees.toFixed(1)}`;
           // document.getElementById('beta').innerHTML = `Beta: ${frontToBack.toFixed(1)}`;
           // document.getElementById('gamma').innerHTML = `Gamma: ${leftToRight.toFixed(1)}`;
-          document.getElementById('kevin').style.transform = `scale(1, ${1/Math.sin(frontToBack * (Math.PI/180))})`;
+          let scaleX = Math.min(2.5, Math.abs(1/Math.sin(leftToRight * (Math.PI/180))));
+          let scaleY = Math.min(20, Math.abs(1/Math.sin(frontToBack * (Math.PI/180))));
+          // document.getElementById('beta').innerHTML = `X: ${scaleX.toFixed(1)}`;
+          // document.getElementById('gamma').innerHTML = `Y: ${scaleY.toFixed(1)}`;
+          // document.getElementById('kevin').style.transform = `scale(1, ${scaleY})`;
+          document.getElementById('kevin').style.transform = `rotateX(-${frontToBack+90}deg)`;
         } else {
           console.log("No sensor info");
           // document.getElementById('alpha').innerHTML = `No sensor info`;
